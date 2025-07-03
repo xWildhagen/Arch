@@ -3,11 +3,11 @@
 ### Initial setup
 
 ```
-sudo loadkeys no
+loadkeys no
 pacman -Sy git
 git clone https://github.com/xwildhagen/arch.git
-sudo chmod +x arch/setup.sh
-sudo arch/setup.sh
+chmod +x arch/setup.sh
+arch/setup.sh
 ```
 
 ### Pull changes from GitHub
