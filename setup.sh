@@ -1,11 +1,32 @@
 #!/bin/bash
 
-# This script automates a basic Arch Linux installation for UEFI systems.
-# It provides interactive prompts for disk selection, partitioning, bootloader,
+# This script automates a basic Arch Linux installation for both UEFI and BIOS systems.
+# It provides interactive prompts for system type, disk selection, partitioning, bootloader,
 # timezone, locale, user creation, graphics drivers, and desktop environment.
 
-echo "--- Arch Linux Automated Installation Script (UEFI Only) ---"
-echo "This script is designed for UEFI systems. Ensure your VM or physical machine is configured for UEFI boot."
+echo "--- Arch Linux Automated Installation Script ---"
+echo "This script supports both UEFI and BIOS boot modes."
+
+# --- 0. System Type Selection ---
+echo "--- Choosing System Boot Mode ---"
+echo "Is this a UEFI or BIOS (Legacy) system?"
+echo "  1) UEFI (Modern systems, required for EFI System Partition)"
+echo "  2) BIOS (Older systems, MBR-based boot)"
+SYSTEM_TYPE_CHOICE=""
+while [[ ! "$SYSTEM_TYPE_CHOICE" =~ ^[1-2]$ ]]; do
+    read -p "Enter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
+    if [[ ! "$SYSTEM_TYPE_CHOICE" =~ ^[1-2]$ ]]; then
+        echo "Invalid choice. Please enter 1 or 2."
+    fi
+done
+
+if [ "$SYSTEM_TYPE_CHOICE" -eq 1 ]; then
+    SYSTEM_TYPE="UEFI"
+    echo "Selected: UEFI system."
+else
+    SYSTEM_TYPE="BIOS"
+    echo "Selected: BIOS system."
+fi
 
 # --- 1. Pre-installation setup ---
 
@@ -15,7 +36,6 @@ timedatectl set-ntp true
 echo "--- Identifying target disk ---"
 echo "Available disks:"
 # List disks, excluding loop devices and showing size and model
-# Corrected: --noheadings instead of noheadings
 lsblk -dpl --noheadings -o NAME,SIZE,MODEL | grep -E 'sd|nvme|vd'
 
 DISK=""
@@ -29,7 +49,11 @@ done
 
 echo "--- Partitioning the disk ($DISK) using cfdisk ---"
 echo "You will create the following partitions:"
-echo "  1. EFI System Partition (e.g., 512M, type EFI System)"
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    echo "  1. EFI System Partition (e.g., 512M, type EFI System)"
+else # BIOS
+    echo "  1. BIOS Boot Partition (e.g., 1M, type BIOS Boot - essential for GRUB on BIOS)"
+fi
 echo "  2. Swap Partition (e.g., 2G-4G, type Linux swap)"
 echo "  3. Root Partition (e.g., 20G+, type Linux filesystem)"
 echo "  4. (Optional) Home Partition (rest of disk, type Linux filesystem)"
@@ -38,12 +62,15 @@ read -p "Press Enter to launch cfdisk..."
 cfdisk "$DISK"
 
 echo "--- Formatting partitions ---"
-read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
+    mkfs.fat -F32 "$EFI_PART"
+fi
+
 read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
 read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
 read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART
 
-mkfs.fat -F32 "$EFI_PART"
 mkswap "$SWAP_PART"
 swapon "$SWAP_PART"
 mkfs.ext4 "$ROOT_PART"
@@ -60,33 +87,43 @@ if [ -n "$HOME_PART" ]; then
     mount "$HOME_PART" /mnt/home
 fi
 
-mkdir -p /mnt/boot/efi
-mount "$EFI_PART" /mnt/boot/efi
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    mkdir -p /mnt/boot/efi
+    mount "$EFI_PART" /mnt/boot/efi
+fi
 
 # --- 2. Installation ---
 
 echo "--- Choosing bootloader ---"
-echo "Select your preferred bootloader:"
-echo "  1) GRUB (Recommended for general use, highly compatible)"
-echo "  2) systemd-boot (Simpler, UEFI-only, integrates with systemd)"
-echo "  3) rEFInd (Graphical, auto-detects boot entries, user-friendly)"
 BOOTLOADER_CHOICE=""
-while [[ ! "$BOOTLOADER_CHOICE" =~ ^[1-3]$ ]]; do
-    read -p "Enter choice (1, 2, or 3): " BOOTLOADER_CHOICE
-    if [[ ! "$BOOTLOADER_CHOICE" =~ ^[1-3]$ ]]; then
-        echo "Invalid choice. Please enter 1, 2, or 3."
-    fi
-done
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    echo "Select your preferred bootloader:"
+    echo "  1) GRUB (Recommended for general use, highly compatible)"
+    echo "  2) systemd-boot (Simpler, UEFI-only, integrates with systemd)"
+    echo "  3) rEFInd (Graphical, auto-detects boot entries, user-friendly)"
+    while [[ ! "$BOOTLOADER_CHOICE" =~ ^[1-3]$ ]]; do
+        read -p "Enter choice (1, 2, or 3): " BOOTLOADER_CHOICE
+        if [[ ! "$BOOTLOADER_CHOICE" =~ ^[1-3]$ ]]; then
+            echo "Invalid choice. Please enter 1, 2, or 3."
+        fi
+    done
+else # BIOS
+    echo "For BIOS systems, GRUB is the recommended bootloader."
+    BOOTLOADER_CHOICE=1 # Force GRUB for BIOS
+fi
 
 BOOTLOADER_PACKAGES=""
 case "$BOOTLOADER_CHOICE" in
     1)
-        BOOTLOADER_PACKAGES="grub efibootmgr"
+        if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+            BOOTLOADER_PACKAGES="grub efibootmgr"
+        else # BIOS
+            BOOTLOADER_PACKAGES="grub" # efibootmgr not needed for BIOS
+        fi
         BOOTLOADER_NAME="GRUB"
         ;;
     2)
-        # systemd is part of base, no extra package needed here for bootloader itself
-        BOOTLOADER_PACKAGES=""
+        BOOTLOADER_PACKAGES="" # systemd is part of base
         BOOTLOADER_NAME="systemd-boot"
         ;;
     3)
@@ -180,34 +217,40 @@ echo "--- Granting sudo privileges to wheel group ---"
 # Uncomment the wheel group line in /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-echo "--- Installing and configuring $BOOTLOADER_NAME for EFI ---"
-case "$BOOTLOADER_CHOICE" in
-    1)
-        # GRUB installation
-        grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux --recheck
-        grub-mkconfig -o /boot/grub/grub.cfg
-        ;;
-    2)
-        # systemd-boot installation
-        bootctl install
-        # Create loader.conf
-        echo "default arch" > /boot/efi/loader/loader.conf
-        echo "timeout 3" >> /boot/efi/loader/loader.conf
-        echo "console-mode max" >> /boot/efi/loader/loader.conf
-        # Create Arch Linux boot entry
-        mkdir -p /boot/efi/loader/entries
-        echo "title   Arch Linux" > /boot/efi/loader/entries/arch.conf
-        echo "linux   /vmlinuz-linux" >> /boot/efi/loader/entries/arch.conf
-        echo "initrd  /initramfs-linux.img" >> /boot/efi/loader/entries/arch.conf
-        # Get root PARTUUID for kernel parameters
-        ROOT_PART_UUID=$(blkid -s PARTUUID -o value "$ROOT_PART")
-        echo "options root=PARTUUID=$ROOT_PART_UUID rw" >> /boot/efi/loader/entries/arch.conf
-        ;;
-    3)
-        # rEFInd installation
-        refind-install
-        ;;
-esac
+echo "--- Installing and configuring $BOOTLOADER_NAME ---"
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    case "$BOOTLOADER_CHOICE" in
+        1)
+            # GRUB UEFI installation
+            grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux --recheck
+            grub-mkconfig -o /boot/grub/grub.cfg
+            ;;
+        2)
+            # systemd-boot installation
+            bootctl install
+            # Create loader.conf
+            echo "default arch" > /boot/efi/loader/loader.conf
+            echo "timeout 3" >> /boot/efi/loader/loader.conf
+            echo "console-mode max" >> /boot/efi/loader/loader.conf
+            # Create Arch Linux boot entry
+            mkdir -p /boot/efi/loader/entries
+            echo "title   Arch Linux" > /boot/efi/loader/entries/arch.conf
+            echo "linux   /vmlinuz-linux" >> /boot/efi/loader/entries/arch.conf
+            echo "initrd  /initramfs-linux.img" >> /boot/efi/loader/entries/arch.conf
+            # Get root PARTUUID for kernel parameters
+            ROOT_PART_UUID=$(blkid -s PARTUUID -o value "$ROOT_PART")
+            echo "options root=PARTUUID=$ROOT_PART_UUID rw" >> /boot/efi/loader/entries/arch.conf
+            ;;
+        3)
+            # rEFInd installation
+            refind-install
+            ;;
+    esac
+else # BIOS
+    # GRUB BIOS installation
+    grub-install --target=i386-pc "$DISK"
+    grub-mkconfig -o /boot/grub/grub.cfg
+fi
 
 echo "--- Enabling NetworkManager service ---"
 systemctl enable NetworkManager
