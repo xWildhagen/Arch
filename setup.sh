@@ -47,6 +47,22 @@ while [ -z "$DISK" ]; do
     fi
 done
 
+# --- Hibernation and Swap Size Recommendation ---
+HIBERNATE_CHOICE=""
+read -p "Do you plan to use hibernation (suspend-to-disk)? (y/N): " HIBERNATE_CHOICE
+if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
+    TOTAL_RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+    # Convert KB to GB for display, round up
+    RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
+    echo ""
+    echo "--- Hibernation requires swap space at least equal to your RAM. ---"
+    echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
+    echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
+    echo "Please ensure your Swap Partition is at least this size during partitioning."
+    echo ""
+fi
+
+
 echo "--- Partitioning the disk ($DISK) using cfdisk ---"
 echo "You will create the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
@@ -54,7 +70,7 @@ if [ "$SYSTEM_TYPE" == "UEFI" ]; then
 else # BIOS
     echo "  1. BIOS Boot Partition (e.g., 1M, type BIOS Boot - essential for GRUB on BIOS)"
 fi
-echo "  2. Swap Partition (e.g., 2G-4G, type Linux swap)"
+echo "  2. Swap Partition (e.g., 2G-4G, type Linux swap - or ${RECOMMENDED_SWAP_GB}G for hibernation if chosen)"
 echo "  3. Root Partition (e.g., 20G+, type Linux filesystem)"
 echo "  4. (Optional) Home Partition (rest of disk, type Linux filesystem)"
 echo "After partitioning, remember the full paths for each (e.g., ${DISK}1, ${DISK}2, etc.)."
