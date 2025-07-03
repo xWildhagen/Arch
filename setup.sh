@@ -79,21 +79,55 @@ cfdisk "$DISK"
 
 echo "--- Formatting partitions ---"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
-    read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
+    EFI_PART=""
+    while [ ! -b "$EFI_PART" ]; do
+        read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
+        if [ ! -b "$EFI_PART" ]; then
+            echo "Error: $EFI_PART is not a valid block device. Please try again."
+        fi
+    done
     mkfs.fat -F32 "$EFI_PART"
 fi
 
-read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
-read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
-read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART
-
+SWAP_PART=""
+while [ ! -b "$SWAP_PART" ]; do
+    read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
+    if [ ! -b "$SWAP_PART" ]; then
+        echo "Error: $SWAP_PART is not a valid block device. Please try again."
+    fi
+done
 mkswap "$SWAP_PART"
 swapon "$SWAP_PART"
+
+ROOT_PART=""
+while [ ! -b "$ROOT_PART" ]; do
+    read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
+    if [ ! -b "$ROOT_PART" ]; then
+        echo "Error: $ROOT_PART is not a valid block device. Please try again."
+    fi
+done
 mkfs.ext4 "$ROOT_PART"
 
-if [ -n "$HOME_PART" ]; then
-    mkfs.ext4 "$HOME_PART"
+HOME_PART_INPUT=""
+read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART_INPUT
+if [ -n "$HOME_PART_INPUT" ]; then
+    HOME_PART=""
+    while [ ! -b "$HOME_PART" ]; do
+        # Use HOME_PART_INPUT for the first attempt, then prompt again if invalid
+        HOME_PART=${HOME_PART_INPUT:-""} # Assign initial value
+        if [ -n "$HOME_PART" ] && [ ! -b "$HOME_PART" ]; then
+            echo "Error: $HOME_PART is not a valid block device. Please try again or leave empty for no home partition."
+            read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART_INPUT
+            HOME_PART="" # Reset to force loop
+        elif [ -z "$HOME_PART" ]; then
+            break # Exit loop if empty
+        fi
+    done
+    if [ -n "$HOME_PART" ]; then # Only format if a valid home partition was entered
+        mkfs.ext4 "$HOME_PART"
+    fi
 fi
+
 
 echo "--- Mounting partitions ---"
 mount "$ROOT_PART" /mnt
