@@ -15,7 +15,8 @@ timedatectl set-ntp true
 echo "--- Identifying target disk ---"
 echo "Available disks:"
 # List disks, excluding loop devices and showing size and model
-lsblk -dpl noheadings -o NAME,SIZE,MODEL | grep -E 'sd|nvme|vd'
+# Corrected: --noheadings instead of noheadings
+lsblk -dpl --noheadings -o NAME,SIZE,MODEL | grep -E 'sd|nvme|vd'
 
 DISK=""
 while [ -z "$DISK" ]; do
