@@ -13,5 +13,5 @@ sudo arch/setup.sh
 ### Pull changes from GitHub
 
 ```
-git -C nixos reset --hard && git -C nixos pull
+git -C arch reset --hard && git -C arch pull
 ```
