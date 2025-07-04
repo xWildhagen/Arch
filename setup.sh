@@ -23,11 +23,10 @@ echo "This script supports both UEFI and BIOS boot modes."
 echo -e "\n--- Choosing System Boot Mode ---"
 echo "Is this a UEFI or BIOS (Legacy) system?"
 echo "  1) UEFI (Modern systems, required for EFI System Partition)"
-echo "  2) BIOS (Older systems, MBR-based boot)"
+echo -e "  2) BIOS (Older systems, MBR-based boot)\n"
 
 SYSTEM_TYPE_CHOICE=""
 while true; do
-    echo
     read -p "Enter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
     case "$SYSTEM_TYPE_CHOICE" in
         1) SYSTEM_TYPE="UEFI"; echo -e "\nSelected: UEFI system."; break ;;
@@ -83,6 +82,7 @@ echo "  2. Swap Partition (e.g., 2G-4G, type 'Linux swap' - or ${RECOMMENDED_SWA
 echo "  3. Root Partition (e.g., 20G+, type 'Linux filesystem')"
 echo "  4. (Optional) Home Partition (rest of disk, type 'Linux filesystem')"
 echo "After partitioning, remember the full paths for each (e.g., ${DISK}1, ${DISK}2, etc.)."
+echo
 read -p "Press Enter to launch cfdisk. Create your partitions and write changes. Then exit cfdisk."
 cfdisk "$DISK" || { echo "Error: cfdisk failed. Exiting."; exit 1; }
 
