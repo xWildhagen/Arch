@@ -72,7 +72,6 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
     echo "Please ensure your Swap Partition is at least this size during partitioning."
     echo -e "-------------------------------------------------------------------\n"
-fi
 else
     echo -e "\nSELECTED OPTION: N/n"
 fi
