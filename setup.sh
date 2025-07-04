@@ -16,11 +16,11 @@ cleanup_mounts() {
 trap cleanup_mounts EXIT # Ensure cleanup_mounts runs on script exit
 
 clear
-echo "--- Arch Linux Automated Installation Script ---"
+echo "--- ARCH LINUX AUTOMATED INSTALLATION SCRIPT ---"
 echo "This script supports both UEFI and BIOS boot modes."
 
 # --- 0. System Type Selection ---
-echo -e "\n--- Choosing System Boot Mode ---"
+echo -e "\n--- CHOOSING SYSTEM BOOT MODE ---"
 echo "Is this a UEFI or BIOS (Legacy) system?"
 echo "  1) UEFI (Modern systems, required for EFI System Partition)"
 echo "  2) BIOS (Older systems, MBR-based boot)"
@@ -61,15 +61,15 @@ done
 # --- Hibernation and Swap Size Recommendation ---
 echo -e "\n--- Hibernation and Swap Recommendation ---"
 read -p "Do you plan to use hibernation (suspend-to-disk)? (y/N): " HIBERNATE_CHOICE
-echo -e "\nSelected disk: $HIBERNATE_CHOICE"
 if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     TOTAL_RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     # Convert KB to GB for display, round up
     RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
-    echo -e "\nIMPORTANT: Hibernation requires swap space at least equal to your RAM."
+    echo -e "\n--- IMPORTANT: Hibernation requires swap space at least equal to your RAM. ---"
     echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
     echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
     echo "Please ensure your Swap Partition is at least this size during partitioning."
+    echo -e "-------------------------------------------------------------------\n"
 fi
 
 echo -e "\n--- Partitioning the disk ($DISK) using cfdisk ---"
