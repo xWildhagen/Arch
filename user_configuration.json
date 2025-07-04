@@ -194,7 +194,7 @@
   },
   "ntp": true,
   "packages": ["vim", "neovim", "git", "code"],
-  "parallel_downloads": 0,
+  "parallel_downloads": 10,
   "services": [],
   "swap": true,
   "timezone": "Europe/Oslo",
