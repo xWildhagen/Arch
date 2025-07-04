@@ -92,14 +92,14 @@ cfdisk "$DISK" || { echo "Error: cfdisk failed. Exiting."; exit 1; }
 echo -e "\n--- FORMATTING PARTITIONS ---"
 echo "You will format the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
-    echo "  1. EFI System Partition (e.g., ${DISK}1)"
-    echo "  2. Swap Partition (e.g., ${DISK}2)"
-    echo "  3. Root Partition (e.g., ${DISK}3)"
-    echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
+    echo "  1. EFI System Partition (e.g., /dev/sda1, /dev/nvme0n1p1)"
+    echo "  2. Swap Partition (e.g., /dev/sda2, /dev/nvme0n1p2)"
+    echo "  3. Root Partition (e.g., /dev/sda3, /dev/nvme0n1p3)"
+    echo "  4. (Optional) Home Partition (e.g., /dev/sda4, /dev/nvme0n1p4)"
 else
-    echo "  1. Swap Partition (e.g., ${DISK}2)"
-    echo "  2. Root Partition (e.g., ${DISK}3)"
-    echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
+    echo "  1. Swap Partition (e.g., /dev/sda2, /dev/nvme0n1p2)"
+    echo "  2. Root Partition (e.g., /dev/sda3, /dev/nvme0n1p3)"
+    echo "  3. (Optional) Home Partition (e.g., /dev/sda4, /dev/nvme0n1p4)"
 fi
 EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
