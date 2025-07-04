@@ -9,8 +9,7 @@ set -e # Exit immediately if a command exits with a non-zero status.
 
 # Function to clean up mounts if the script exits prematurely
 cleanup_mounts() {
-    echo
-    echo -e "Attempting to unmount /mnt..."
+    echo -e "\n\nAttempting to unmount /mnt..."
     umount -R /mnt &>/dev/null || true # Ignore errors if not mounted
     echo -e "\nCLEANUP COMPLETE."
 }
