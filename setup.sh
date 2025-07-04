@@ -9,7 +9,8 @@ set -e # Exit immediately if a command exits with a non-zero status.
 
 # Function to clean up mounts if the script exits prematurely
 cleanup_mounts() {
-    echo -e "\nAttempting to unmount /mnt..."
+    echo
+    echo -e "Attempting to unmount /mnt..."
     umount -R /mnt &>/dev/null || true # Ignore errors if not mounted
     echo -e "\nCLEANUP COMPLETE."
 }
@@ -92,15 +93,15 @@ cfdisk "$DISK" || { echo "Error: cfdisk failed. Exiting."; exit 1; }
 echo -e "\n--- FORMATTING PARTITIONS ---"
 echo "You will format the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
-    echo "  1. EFI System Partition (e.g., ${DISK}1)"
-    echo "  2. Swap Partition (e.g., ${DISK}2)"
-    echo "  3. Root Partition (e.g., ${DISK}3)"
-    echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
+    echo "  1. EFI System Partition (Press Enter for: ${DISK}1)"
+    echo "  2. Swap Partition (Press Enter for: ${DISK}2)"
+    echo "  3. Root Partition (Press Enter for: ${DISK}3)"
+    echo "  4. (Optional) Home Partition (Press Enter for: empty)"
 fi
-echo "  1. Swap Partition (e.g., ${DISK}2)"
-echo "  2. Root Partition (e.g., ${DISK}3)"
-echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
-EFI_PART=""
+echo "  1. Swap Partition (Press Enter for: ${DISK}2)"
+echo "  2. Root Partition (Press Enter for: ${DISK}3)"
+echo "  3. (Optional) Home Partition (Press Enter for: empty)"
+EFI_PART="${DISK}1"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
         echo
@@ -115,7 +116,7 @@ if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     done
 fi
 
-SWAP_PART=""
+SWAP_PART="${DISK}2"
 while true; do
     echo
     read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
@@ -129,7 +130,7 @@ while true; do
     fi
 done
 
-ROOT_PART=""
+ROOT_PART="${DISK}3"
 while true; do
     echo
     read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
