@@ -61,11 +61,12 @@ done
 # --- Hibernation and Swap Size Recommendation ---
 echo -e "\n--- Hibernation and Swap Recommendation ---"
 read -p "Do you plan to use hibernation (suspend-to-disk)? (y/N): " HIBERNATE_CHOICE
+echo -e "\nSelected disk: $HIBERNATE_CHOICE"
 if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     TOTAL_RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     # Convert KB to GB for display, round up
     RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
-    echo -e "\n--- IMPORTANT: Hibernation requires swap space at least equal to your RAM. ---"
+    echo -e "\nIMPORTANT: Hibernation requires swap space at least equal to your RAM."
     echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
     echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
     echo "Please ensure your Swap Partition is at least this size during partitioning."
