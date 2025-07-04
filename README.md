@@ -1,14 +1,24 @@
 # Arch
 
-### Initial setup
+## Initial setup
+
+### SSH
+
+```
+passwd
+ssh root@IP
+```
+
+### Install
 
 ```
 loadkeys no
 pacman -Sy git
 git clone https://github.com/xwildhagen/arch.git
-chmod +x arch/setup.sh
-arch/setup.sh
+archinstall --config arch/user_configuration.json --creds arch/user_credentials.json
 ```
+
+## Stuff
 
 ### Pull changes from GitHub
 
