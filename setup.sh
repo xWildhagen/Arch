@@ -27,7 +27,7 @@ echo "  2) BIOS (Older systems, MBR-based boot)"
 
 SYSTEM_TYPE_CHOICE=""
 while true; do
-    read -ep "\nEnter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
+    read -e -p "\nEnter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
     case "$SYSTEM_TYPE_CHOICE" in
         1) SYSTEM_TYPE="UEFI"; echo -e "\nSelected: UEFI system."; break ;;
         2) SYSTEM_TYPE="BIOS"; echo -e "\nSelected: BIOS system."; break ;;
