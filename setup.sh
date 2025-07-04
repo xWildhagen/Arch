@@ -30,18 +30,18 @@ while true; do
     echo
     read -p "Enter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
     case "$SYSTEM_TYPE_CHOICE" in
-        1) SYSTEM_TYPE="UEFI"; echo -e "\nSelected: UEFI system."; break ;;
-        2) SYSTEM_TYPE="BIOS"; echo -e "\nSelected: BIOS system."; break ;;
+        1) SYSTEM_TYPE="UEFI"; echo -e "\nSELECTED: UEFI system."; break ;;
+        2) SYSTEM_TYPE="BIOS"; echo -e "\nSELECTED: BIOS system."; break ;;
         *) echo "Invalid choice. Please enter 1 or 2." ;;
     esac
 done
 
 # --- 1. Pre-installation setup ---
 
-echo -e "\n--- Updating system clock ---"
+echo -e "\n--- UPDATING SYSTEM CLOCK ---"
 timedatectl set-ntp true || { echo "Error: Failed to set NTP. Check internet connection."; exit 1; }
 
-echo -e "\n--- Identifying target disk ---"
+echo -e "\n--- IDENTIFYING TARGET DISK ---"
 echo "Available disks (excluding loop devices):"
 # List disks, showing name, size, and model
 lsblk -dpl --noheadings -o NAME,SIZE,MODEL | grep -E 'sd|nvme|vd' || { echo "Error: No disks found or lsblk failed."; exit 1; }
@@ -51,7 +51,7 @@ while true; do
     echo
     read -p "Enter the target disk (e.g., /dev/sda, /dev/nvme0n1): " DISK
     if [[ -b "$DISK" ]]; then
-        echo -e "\nSelected disk: $DISK"
+        echo -e "\nSELECTED DISK: $DISK"
         break
     else
         echo "Error: '$DISK' is not a valid block device. Please try again."
