@@ -9,9 +9,9 @@ set -e # Exit immediately if a command exits with a non-zero status.
 
 # Function to clean up mounts if the script exits prematurely
 cleanup_mounts() {
-    echo "Attempting to unmount /mnt..."
+    echo -e "\nAttempting to unmount /mnt..."
     umount -R /mnt &>/dev/null || true # Ignore errors if not mounted
-    echo "Cleanup complete."
+    echo -e "\nCLEANUP COMPLETE."
 }
 trap cleanup_mounts EXIT # Ensure cleanup_mounts runs on script exit
 
@@ -67,7 +67,7 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     TOTAL_RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     # Convert KB to GB for display, round up
     RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
-    echo -e "\nIMPORTANT: Hibernation requires swap space at least equal to your RAM."
+    echo -e "\nImportant: Hibernation requires swap space at least equal to your RAM."
     echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
     echo -e "\nRECOMMENDED MINIMUM SWAP SIZE: ${RECOMMENDED_SWAP_GB}G"
 else
@@ -93,10 +93,13 @@ echo -e "\n--- FORMATTING PARTITIONS ---"
 echo "You will format the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "  1. EFI System Partition (e.g., ${DISK}1)"
+    echo "  2. Swap Partition (e.g., ${DISK}2)"
+    echo "  3. Root Partition (e.g., ${DISK}3)"
+    echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
 fi
-echo "  2. Swap Partition (e.g., ${DISK}2)"
-echo "  3. Root Partition (e.g., ${DISK}3)"
-echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
+echo "  1. Swap Partition (e.g., ${DISK}2)"
+echo "  2. Root Partition (e.g., ${DISK}3)"
+echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
 EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
