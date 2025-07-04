@@ -70,7 +70,7 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     echo -e "-------------------------------------------------------------------\n"
 fi
 
-echo "--- Partitioning the disk ($DISK) using cfdisk ---"
+echo -e "\n--- Partitioning the disk ($DISK) using cfdisk ---"
 echo "You will create the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "  1. EFI System Partition (e.g., 512M, type 'EFI System')"
