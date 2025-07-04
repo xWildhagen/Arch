@@ -69,7 +69,6 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
     echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
     echo "Please ensure your Swap Partition is at least this size during partitioning."
-    echo -e "-------------------------------------------------------------------\n"
 fi
 
 echo -e "\n--- Partitioning the disk ($DISK) using cfdisk ---"
