@@ -93,15 +93,15 @@ cfdisk "$DISK" || { echo "Error: cfdisk failed. Exiting."; exit 1; }
 echo -e "\n--- FORMATTING PARTITIONS ---"
 echo "You will format the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
-    echo "  1. EFI System Partition (Press Enter for: ${DISK}1)"
-    echo "  2. Swap Partition (Press Enter for: ${DISK}2)"
-    echo "  3. Root Partition (Press Enter for: ${DISK}3)"
-    echo "  4. (Optional) Home Partition (Press Enter for: empty)"
+    echo "  1. EFI System Partition (e.g., ${DISK}1)"
+    echo "  2. Swap Partition (e.g., ${DISK}2)"
+    echo "  3. Root Partition (e.g., ${DISK}3)"
+    echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
 fi
-echo "  1. Swap Partition (Press Enter for: ${DISK}2)"
-echo "  2. Root Partition (Press Enter for: ${DISK}3)"
-echo "  3. (Optional) Home Partition (Press Enter for: empty)"
-EFI_PART="${DISK}1"
+echo "  1. Swap Partition (e.g., ${DISK}2)"
+echo "  2. Root Partition (e.g., ${DISK}3)"
+echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
+EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
         echo
@@ -116,7 +116,7 @@ if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     done
 fi
 
-SWAP_PART="${DISK}2"
+SWAP_PART=""
 while true; do
     echo
     read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
@@ -130,7 +130,7 @@ while true; do
     fi
 done
 
-ROOT_PART="${DISK}3"
+ROOT_PART=""
 while true; do
     echo
     read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
