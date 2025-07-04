@@ -3,111 +3,6 @@
   "audio_config": {
     "audio": "pipewire"
   },
-  "bootloader": "Grub",
-  "custom_commands": [],
-  "disk_config": {
-    "btrfs_options": {
-      "snapshot_config": null
-    },
-    "config_type": "manual_partitioning",
-    "device_modifications": [
-      {
-        "device": "/dev/sda",
-        "partitions": [
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": ["boot"],
-            "fs_type": "fat32",
-            "mount_options": [],
-            "mountpoint": "/boot",
-            "obj_id": "092e4f88-e169-49d9-abda-8e11d2e0f8d5",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "GiB",
-              "value": 1
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "MiB",
-              "value": 1
-            },
-            "status": "create",
-            "type": "primary"
-          },
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": [],
-            "fs_type": "btrfs",
-            "mount_options": ["compress=zstd"],
-            "mountpoint": "/",
-            "obj_id": "c60ebad6-c483-443e-92ae-498bdb541156",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "GiB",
-              "value": 32
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "B",
-              "value": 1074790400
-            },
-            "status": "create",
-            "type": "primary"
-          },
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": [],
-            "fs_type": "btrfs",
-            "mount_options": ["compress=zstd"],
-            "mountpoint": "/home",
-            "obj_id": "6579b20f-8702-4db5-a0b5-7aa162582faa",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "B",
-              "value": 71939653632
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "B",
-              "value": 35434528768
-            },
-            "status": "create",
-            "type": "primary"
-          }
-        ],
-        "wipe": true
-      }
-    ],
-    "disk_encryption": {
-      "encryption_type": "luks",
-      "lvm_volumes": [],
-      "partitions": [
-        "c60ebad6-c483-443e-92ae-498bdb541156",
-        "6579b20f-8702-4db5-a0b5-7aa162582faa"
-      ]
-    }
-  },
   "hostname": "arch",
   "kernels": ["linux"],
   "locale_config": {
@@ -297,34 +192,9 @@
     },
     "optional_repositories": []
   },
-  "network_config": {
-    "nics": [
-      {
-        "dhcp": true,
-        "dns": [],
-        "gateway": null,
-        "iface": "ens18",
-        "ip": null
-      }
-    ],
-    "type": "manual"
-  },
   "ntp": true,
   "packages": [],
   "parallel_downloads": 0,
-  "profile_config": {
-    "gfx_driver": "All open-source",
-    "greeter": "sddm",
-    "profile": {
-      "custom_settings": {
-        "Hyprland": {
-          "seat_access": "polkit"
-        }
-      },
-      "details": ["Hyprland"],
-      "main": "Desktop"
-    }
-  },
   "services": [],
   "swap": true,
   "timezone": "Europe/Oslo",
