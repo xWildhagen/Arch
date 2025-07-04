@@ -156,7 +156,7 @@ if [ -n "$HOME_PART_INPUT" ]; then
     fi
 fi
 
-echo -e "\n--- Mounting partitions ---"
+echo -e "\n--- MOUNTING PARTITIONS ---"
 mount "$ROOT_PART" /mnt || { echo "Error: Failed to mount root partition."; exit 1; }
 
 if [ -n "$HOME_PART" ]; then
