@@ -192,9 +192,23 @@
     },
     "optional_repositories": []
   },
+  "network_config": {
+    "type": "nm"
+  },
   "ntp": true,
   "packages": ["fastfetch", "vim", "git", "code"],
   "parallel_downloads": 10,
+  "profile_config": {
+    "gfx_driver": "All open-source",
+    "greeter": "sddm",
+    "profile": {
+      "custom_settings": {
+        "KDE Plasma": {}
+      },
+      "details": ["KDE Plasma"],
+      "main": "Desktop"
+    }
+  },
   "services": [],
   "swap": true,
   "timezone": "Europe/Oslo",
