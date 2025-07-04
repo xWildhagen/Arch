@@ -105,7 +105,7 @@ EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
         echo
-        read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
+        read -p "Enter the EFI partition (e.g., /dev/sda1, /dev/nvme0n1p1): " EFI_PART
         if [[ -b "$EFI_PART" ]]; then
             mkfs.fat -F32 "$EFI_PART" || { echo "Error: Failed to format EFI partition."; exit 1; }
             echo -e "\nEFI PARTITION FORMATTED: $EFI_PART"
@@ -119,7 +119,7 @@ fi
 SWAP_PART=""
 while true; do
     echo
-    read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
+    read -p "Enter the Swap partition (e.g., /dev/sda2, /dev/nvme0n1p2): " SWAP_PART
     if [[ -b "$SWAP_PART" ]]; then
         mkswap "$SWAP_PART" || { echo "Error: Failed to create swap space."; exit 1; }
         swapon "$SWAP_PART" || { echo "Error: Failed to enable swap."; exit 1; }
@@ -133,7 +133,7 @@ done
 ROOT_PART=""
 while true; do
     echo
-    read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
+    read -p "Enter the Root partition (e.g., /dev/sda3, /dev/nvme0n1p3): " ROOT_PART
     if [[ -b "$ROOT_PART" ]]; then
         mkfs.ext4 "$ROOT_PART" || { echo "Error: Failed to format root partition."; exit 1; }
         echo -e "ROOT PARTITION FORMATTED: $ROOT_PART"
@@ -145,7 +145,7 @@ done
 
 HOME_PART=""
 echo
-read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART_INPUT
+read -p "Enter the (optional) Home partition (e.g., /dev/sda4, /dev/nvme0n1p4, leave empty if no home partition): " HOME_PART_INPUT
 if [ -n "$HOME_PART_INPUT" ]; then
     if [[ -b "$HOME_PART_INPUT" ]]; then
         HOME_PART="$HOME_PART_INPUT"
