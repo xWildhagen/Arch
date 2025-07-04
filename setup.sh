@@ -59,9 +59,11 @@ while true; do
 done
 
 # --- Hibernation and Swap Size Recommendation ---
-echo -e "\n--- Hibernation and Swap Recommendation ---"
+echo -e "\n--- HIBERNATION AND SWAP RECOMMENDATION ---"
+HIBERNATE_CHOICE=""
 read -p "Do you plan to use hibernation (suspend-to-disk)? (y/N): " HIBERNATE_CHOICE
 if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
+    echo -e "\nSELECTED OPTION: Y/y\n"
     TOTAL_RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     # Convert KB to GB for display, round up
     RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
@@ -70,6 +72,9 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
     echo "Please ensure your Swap Partition is at least this size during partitioning."
     echo -e "-------------------------------------------------------------------\n"
+fi
+else
+    echo -e "\nSELECTED OPTION: N/n"
 fi
 
 echo -e "\n--- Partitioning the disk ($DISK) using cfdisk ---"
