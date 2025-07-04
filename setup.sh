@@ -23,11 +23,11 @@ echo "This script supports both UEFI and BIOS boot modes."
 echo -e "\n--- Choosing System Boot Mode ---"
 echo "Is this a UEFI or BIOS (Legacy) system?"
 echo "  1) UEFI (Modern systems, required for EFI System Partition)"
-echo -n "  2) BIOS (Older systems, MBR-based boot)\n"
+echo "  2) BIOS (Older systems, MBR-based boot)"
 
 SYSTEM_TYPE_CHOICE=""
 while true; do
-    read -p "\nEnter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
+    read -ep "\nEnter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
     case "$SYSTEM_TYPE_CHOICE" in
         1) SYSTEM_TYPE="UEFI"; echo -e "\nSelected: UEFI system."; break ;;
         2) SYSTEM_TYPE="BIOS"; echo -e "\nSelected: BIOS system."; break ;;
