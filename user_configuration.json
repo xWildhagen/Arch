@@ -193,7 +193,7 @@
     "optional_repositories": []
   },
   "ntp": true,
-  "packages": [],
+  "packages": ["vim", "neovim", "git", "code"],
   "parallel_downloads": 0,
   "services": [],
   "swap": true,
