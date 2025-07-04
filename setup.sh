@@ -96,10 +96,11 @@ if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "  2. Swap Partition (e.g., ${DISK}2)"
     echo "  3. Root Partition (e.g., ${DISK}3)"
     echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
+else
+    echo "  1. Swap Partition (e.g., ${DISK}2)"
+    echo "  2. Root Partition (e.g., ${DISK}3)"
+    echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
 fi
-echo "  1. Swap Partition (e.g., ${DISK}2)"
-echo "  2. Root Partition (e.g., ${DISK}3)"
-echo "  3. (Optional) Home Partition (e.g., ${DISK}4)"
 EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
