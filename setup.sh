@@ -29,8 +29,8 @@ SYSTEM_TYPE_CHOICE=""
 while true; do
     read -p "Enter choice (1 for UEFI, 2 for BIOS): " SYSTEM_TYPE_CHOICE
     case "$SYSTEM_TYPE_CHOICE" in
-        1) SYSTEM_TYPE="UEFI"; echo "Selected: UEFI system."; break ;;
-        2) SYSTEM_TYPE="BIOS"; echo "Selected: BIOS system."; break ;;
+        1) SYSTEM_TYPE="UEFI"; echo -e "\nSelected: UEFI system."; break ;;
+        2) SYSTEM_TYPE="BIOS"; echo -e "\nSelected: BIOS system."; break ;;
         *) echo "Invalid choice. Please enter 1 or 2." ;;
     esac
 done
@@ -49,7 +49,7 @@ DISK=""
 while true; do
     read -p "Enter the target disk (e.g., /dev/sda, /dev/nvme0n1): " DISK
     if [[ -b "$DISK" ]]; then
-        echo "Selected disk: $DISK"
+        echo -e "\nSelected disk: $DISK"
         break
     else
         echo "Error: '$DISK' is not a valid block device. Please try again."
