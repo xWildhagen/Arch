@@ -74,7 +74,7 @@ else
     echo -e "\nSELECTED: No"
 fi
 
-echo -e "\n--- Partitioning the disk ($DISK) using cfdisk ---"
+echo -e "\n--- PARTITIONING THE DISK ($DISK) USING CFDISK ---"
 echo "You will create the following partitions:"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "  1. EFI System Partition (e.g., 512M, type 'EFI System')"
@@ -89,14 +89,22 @@ echo
 read -p "Press Enter to launch cfdisk. Create your partitions and write changes. Then exit cfdisk."
 cfdisk "$DISK" || { echo "Error: cfdisk failed. Exiting."; exit 1; }
 
-echo -e "\n--- Formatting partitions ---"
+echo -e "\n--- FORMATTING PARTITIONS ---"
+echo "You will format the following partitions:"
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    echo "  1. EFI System Partition (e.g., ${DISK}1)"
+fi
+echo "  2. Swap Partition (e.g., ${DISK}2)"
+echo "  3. Root Partition (e.g., ${DISK}3)"
+echo "  4. (Optional) Home Partition (e.g., ${DISK}4)"
 EFI_PART=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     while true; do
+        echo
         read -p "Enter the EFI partition (e.g., ${DISK}1): " EFI_PART
         if [[ -b "$EFI_PART" ]]; then
             mkfs.fat -F32 "$EFI_PART" || { echo "Error: Failed to format EFI partition."; exit 1; }
-            echo "EFI partition formatted: $EFI_PART"
+            echo -e "\nEFI PARTITION FORMATTED: $EFI_PART"
             break
         else
             echo "Error: '$EFI_PART' is not a valid block device. Please try again."
@@ -106,11 +114,12 @@ fi
 
 SWAP_PART=""
 while true; do
+    echo
     read -p "Enter the Swap partition (e.g., ${DISK}2): " SWAP_PART
     if [[ -b "$SWAP_PART" ]]; then
         mkswap "$SWAP_PART" || { echo "Error: Failed to create swap space."; exit 1; }
         swapon "$SWAP_PART" || { echo "Error: Failed to enable swap."; exit 1; }
-        echo "Swap partition configured: $SWAP_PART"
+        echo -e "\nSWAP PARTITION CONFIGURED: $SWAP_PART"
         break
     else
         echo "Error: '$SWAP_PART' is not a valid block device. Please try again."
@@ -119,10 +128,11 @@ done
 
 ROOT_PART=""
 while true; do
+    echo
     read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
     if [[ -b "$ROOT_PART" ]]; then
         mkfs.ext4 "$ROOT_PART" || { echo "Error: Failed to format root partition."; exit 1; }
-        echo "Root partition formatted: $ROOT_PART"
+        echo -e "\nROOT PARTITION FORMATTED: $ROOT_PART"
         break
     else
         echo "Error: '$ROOT_PART' is not a valid block device. Please try again."
@@ -130,12 +140,13 @@ while true; do
 done
 
 HOME_PART=""
+echo
 read -p "Enter the (optional) Home partition (e.g., ${DISK}4, leave empty if no home partition): " HOME_PART_INPUT
 if [ -n "$HOME_PART_INPUT" ]; then
     if [[ -b "$HOME_PART_INPUT" ]]; then
         HOME_PART="$HOME_PART_INPUT"
         mkfs.ext4 "$HOME_PART" || { echo "Error: Failed to format home partition."; exit 1; }
-        echo "Home partition formatted: $HOME_PART"
+        echo -e "\nHOME PARTITION FORMATTED: $HOME_PART"
     else
         echo "Warning: '$HOME_PART_INPUT' is not a valid block device. Skipping home partition."
         HOME_PART=""
