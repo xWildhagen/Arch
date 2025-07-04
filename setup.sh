@@ -135,7 +135,7 @@ while true; do
     read -p "Enter the Root partition (e.g., ${DISK}3): " ROOT_PART
     if [[ -b "$ROOT_PART" ]]; then
         mkfs.ext4 "$ROOT_PART" || { echo "Error: Failed to format root partition."; exit 1; }
-        echo -e "\nROOT PARTITION FORMATTED: $ROOT_PART"
+        echo -e "ROOT PARTITION FORMATTED: $ROOT_PART"
         break
     else
         echo "Error: '$ROOT_PART' is not a valid block device. Please try again."
@@ -149,7 +149,7 @@ if [ -n "$HOME_PART_INPUT" ]; then
     if [[ -b "$HOME_PART_INPUT" ]]; then
         HOME_PART="$HOME_PART_INPUT"
         mkfs.ext4 "$HOME_PART" || { echo "Error: Failed to format home partition."; exit 1; }
-        echo -e "\nHOME PARTITION FORMATTED: $HOME_PART"
+        echo -e "HOME PARTITION FORMATTED: $HOME_PART"
     else
         echo "Warning: '$HOME_PART_INPUT' is not a valid block device. Skipping home partition."
         HOME_PART=""
@@ -157,6 +157,11 @@ if [ -n "$HOME_PART_INPUT" ]; then
 fi
 
 echo -e "\n--- MOUNTING PARTITIONS ---"
+if [ "$SYSTEM_TYPE" == "UEFI" ]; then
+    mkdir -p /mnt/boot/efi
+    mount "$EFI_PART" /mnt/boot/efi || { echo "Error: Failed to mount EFI partition."; exit 1; }
+fi
+
 mount "$ROOT_PART" /mnt || { echo "Error: Failed to mount root partition."; exit 1; }
 
 if [ -n "$HOME_PART" ]; then
@@ -164,14 +169,9 @@ if [ -n "$HOME_PART" ]; then
     mount "$HOME_PART" /mnt/home || { echo "Error: Failed to mount home partition."; exit 1; }
 fi
 
-if [ "$SYSTEM_TYPE" == "UEFI" ]; then
-    mkdir -p /mnt/boot/efi
-    mount "$EFI_PART" /mnt/boot/efi || { echo "Error: Failed to mount EFI partition."; exit 1; }
-fi
-
 # --- 2. Installation ---
 
-echo -e "\n--- Choosing bootloader ---"
+echo -e "\n--- CHOOSING BOOTLOADER ---"
 BOOTLOADER_CHOICE=""
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "Select your preferred bootloader:"
@@ -179,15 +179,18 @@ if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     echo "  2) systemd-boot (Simpler, UEFI-only, integrates with systemd)"
     echo "  3) rEFInd (Graphical, auto-detects boot entries, user-friendly)"
     while true; do
+        echo
         read -p "Enter choice (1, 2, or 3): " BOOTLOADER_CHOICE
         case "$BOOTLOADER_CHOICE" in
-            1|2|3) break ;;
+            1|2|3) echo -e "\nSELECTED: $BOOTLOADER_CHOICE"; break ;;
             *) echo "Invalid choice. Please enter 1, 2, or 3." ;;
         esac
     done
 else # BIOS
     echo "For BIOS systems, GRUB is the recommended bootloader."
+    echo "  1) GRUB (Recommended for general use, highly compatible)"
     BOOTLOADER_CHOICE=1 # Force GRUB for BIOS
+    echo -e "\nSELECTED: $BOOTLOADER_CHOICE"
 fi
 
 BOOTLOADER_PACKAGES=""
@@ -211,7 +214,7 @@ case "$BOOTLOADER_CHOICE" in
         ;;
 esac
 
-echo -e "\n--- Choosing graphics driver ---"
+echo -e "\n--- CHOOSING GRAPHICS DRIVER ---"
 echo "Select your graphics card type:"
 echo "  1) Intel"
 echo "  2) AMD"
@@ -219,9 +222,10 @@ echo "  3) NVIDIA (proprietary)"
 echo "  4) Virtual Machine / Generic (for basic VESA or VM drivers like virtio-gpu, vmware-guest)"
 GRAPHICS_CHOICE=""
 while true; do
+    echo
     read -p "Enter choice (1, 2, 3, or 4): " GRAPHICS_CHOICE
     case "$GRAPHICS_CHOICE" in
-        1|2|3|4) break ;;
+        1|2|3|4) echo -e "\nSELECTED: $GRAPHICS_CHOICE"; break ;;
         *) echo "Invalid choice. Please enter 1, 2, 3, or 4." ;;
     esac
 done
@@ -231,11 +235,11 @@ case "$GRAPHICS_CHOICE" in
     1) GRAPHICS_PACKAGES="xf86-video-intel vulkan-intel mesa" ;;
     2) GRAPHICS_PACKAGES="xf86-video-amdgpu vulkan-radeon mesa" ;;
     3) GRAPHICS_PACKAGES="nvidia nvidia-utils nvidia-settings" # Consider nvidia-dkms for custom kernels
-       echo "Note: For custom kernels or DKMS, you might need 'nvidia-dkms' instead of 'nvidia'." ;;
-    4) GRAPHICS_PACKAGES="xf86-video-vesa open-vm-tools virtio-gpu" ;; # Basic VESA and common VM drivers
+       echo -e "\nNote: For custom kernels or DKMS, you might need 'nvidia-dkms' instead of 'nvidia'." ;;
+    4) GRAPHICS_PACKAGES="xf86-video-vesa vulkan-virtio mesa open-vm-tools" ;; # Basic VESA and common VM drivers
 esac
 
-echo -e "\n--- Installing essential packages, $BOOTLOADER_NAME, and graphics drivers ---"
+echo -e "\n--- INSTALLING ESSENTIAL PACKAGES, $BOOTLOADER_NAME, AND GRAPHICS DRIVERS ---"
 # base: essential system files
 # linux: the Linux kernel
 # linux-firmware: firmware for various hardware
@@ -249,10 +253,10 @@ INSTALL_PACKAGES="base linux linux-firmware networkmanager sudo vim git dialog x
 echo "Packages to install: $INSTALL_PACKAGES"
 pacstrap /mnt $INSTALL_PACKAGES || { echo "Error: pacstrap failed. Check your internet connection and mirrorlist."; exit 1; }
 
-echo -e "\n--- Generating fstab ---"
+echo -e "\n--- GENERATING FSTAB ---"
 genfstab -U /mnt >> /mnt/etc/fstab || { echo "Error: Failed to generate fstab."; exit 1; }
 
-echo -e "\n--- Entering chroot environment for post-installation setup ---"
+echo -e "\n--- ENTERING CHROOT ENVIRONMENT FOR POST-INSTALLATION SETUP ---"
 # Export variables needed inside the chroot environment
 export SYSTEM_TYPE BOOTLOADER_CHOICE DISK ROOT_PART EFI_PART
 
