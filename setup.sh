@@ -48,6 +48,7 @@ lsblk -dpl --noheadings -o NAME,SIZE,MODEL | grep -E 'sd|nvme|vd' || { echo "Err
 
 DISK=""
 while true; do
+    echo
     read -p "Enter the target disk (e.g., /dev/sda, /dev/nvme0n1): " DISK
     if [[ -b "$DISK" ]]; then
         echo -e "\nSelected disk: $DISK"
