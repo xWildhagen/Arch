@@ -69,8 +69,7 @@ if [[ "$HIBERNATE_CHOICE" =~ ^[Yy]$ ]]; then
     RECOMMENDED_SWAP_GB=$(( (TOTAL_RAM_KB + 1024*1024 - 1) / (1024*1024) )) # Round up to nearest GB
     echo -e "\nIMPORTANT: Hibernation requires swap space at least equal to your RAM."
     echo "Detected RAM: $((TOTAL_RAM_KB / 1024)) MB (~$((TOTAL_RAM_KB / (1024*1024))) GB)"
-    echo "Recommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
-    echo "Please ensure your Swap Partition is at least this size during partitioning."
+    echo -e "\nRecommended minimum swap size for hibernation: ${RECOMMENDED_SWAP_GB}G"
 else
     echo -e "\nSELECTED: No"
 fi
