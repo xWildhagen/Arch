@@ -263,7 +263,7 @@ export SYSTEM_TYPE BOOTLOADER_CHOICE DISK ROOT_PART EFI_PART
 arch-chroot /mnt /bin/bash <<EOF
 set -e # Exit immediately if a command exits with a non-zero status inside chroot
 
-echo -e "\n--- Setting timezone ---"
+echo -e "\n--- SETTING TIMEZONE ---"
 echo "Listing common timezones for reference (e.g., Europe/Oslo, America/New_York, Asia/Tokyo):"
 # You can uncomment the line below to list all timezones, but it's very long.
 # timedatectl list-timezones | less
@@ -271,7 +271,7 @@ read -p "Enter your desired timezone (e.g., Europe/Oslo): " TIMEZONE_INPUT
 ln -sf "/usr/share/zoneinfo/$TIMEZONE_INPUT" /etc/localtime || echo "Warning: Timezone '$TIMEZONE_INPUT' might be invalid or not found. Please verify manually."
 hwclock --systohc || echo "Warning: Failed to set hardware clock."
 
-echo -e "\n--- Setting locale ---"
+echo -e "\n--- SETTING LOCALE ---"
 echo "Common locales: en_US.UTF-8, de_DE.UTF-8, fr_FR.UTF-8"
 read -p "Enter your primary locale (e.g., en_US.UTF-8): " PRIMARY_LOCALE
 echo "$PRIMARY_LOCALE UTF-8" >> /etc/locale.gen
@@ -287,28 +287,28 @@ fi
 locale-gen || { echo "Error: Failed to generate locales."; exit 1; }
 echo "LANG=$PRIMARY_LOCALE" > /etc/locale.conf
 
-echo -e "\n--- Setting hostname ---"
+echo -e "\n--- SETTING HOSTNAME ---"
 read -p "Enter hostname for your system: " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
-echo -e "\n--- Setting root password ---"
+echo -e "\n--- SETTING ROOT PASSWORD ---"
 echo "Set password for root user:"
 passwd || { echo "Error: Failed to set root password."; exit 1; }
 
-echo -e "\n--- Creating a new user ---"
+echo -e "\n--- CREATING A NEW USER ---"
 read -p "Enter new username: " USERNAME
 useradd -m -g users -G wheel "$USERNAME" || { echo "Error: Failed to create new user."; exit 1; }
 echo "Set password for $USERNAME:"
 passwd "$USERNAME" || { echo "Error: Failed to set user password."; exit 1; }
 
-echo -e "\n--- Granting sudo privileges to wheel group ---"
+echo -e "\n--- GRANTING SUDO PRIVILEGES TO WHEEL GROUP ---"
 # Uncomment the wheel group line in /etc/sudoers to allow sudo access
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers || { echo "Error: Failed to configure sudoers."; exit 1; }
 
-echo -e "\n--- Installing and configuring $BOOTLOADER_NAME ---"
+echo -e "\n--- INSTALLING AND CONFIGURING $BOOTLOADER_NAME ---"
 if [ "$SYSTEM_TYPE" == "UEFI" ]; then
     case "$BOOTLOADER_CHOICE" in
         1)
@@ -344,10 +344,10 @@ else # BIOS
     grub-mkconfig -o /boot/grub/grub.cfg || { echo "Error: GRUB configuration failed."; exit 1; }
 fi
 
-echo -e "\n--- Enabling NetworkManager service ---"
+echo -e "\n--- ENABLING NETWORKMANAGER SERVICE ---"
 systemctl enable NetworkManager || { echo "Error: Failed to enable NetworkManager."; exit 1; }
 
-echo -e "\n--- Optional: Install Desktop Environment ---"
+echo -e "\n--- OPTIONAL: INSTALL DESKTOP ENVIRONMENT ---"
 echo "Select a Desktop Environment to install (or skip):"
 echo "  1) GNOME (Full-featured, modern)"
 echo "  2) KDE Plasma (Customizable, feature-rich)"
@@ -396,15 +396,15 @@ echo -e "\n--- Post-installation steps complete! ---"
 
 EOF
 
-echo -e "\n--- Exiting chroot ---"
-echo "--- Syncing filesystem ---"
+echo -e "\n--- EXITING CHROOT ---"
+echo -e "\n--- Syncing filesystem ---"
 sync
 
-echo "--- Unmounting all partitions ---"
+echo -e "\n--- UNMOUNTING ALL PARTITIONS ---"
 umount -R /mnt || { echo "Error: Failed to unmount /mnt. You may need to unmount manually."; exit 1; }
 
-echo -e "\n--- Installation complete! ---"
+echo -e "\n--- INSTALLATION COMPLETE! ---"
 echo "You can now reboot your system."
-echo "IMPORTANT: Remove the installation media (USB drive/CD) before rebooting."
+echo -e "Important: Remove the installation media (USB drive/CD) before rebooting.\n"
 read -p "Press Enter to reboot..."
 reboot
