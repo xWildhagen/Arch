@@ -8,13 +8,13 @@ source ~/arch/scripts/yay.sh
 while true; do
     clear
     echo "-------------------------------------"
-    echo "       Bash Script Main Menu         "
+    echo "       BASH SCRIPT MAIN MENU         "
     echo "-------------------------------------"
     echo "1) Run Archinstall setup"
     echo "2) Install Yay and packages"
     echo "q) Quit"
     echo "-------------------------------------"
-    read -p "Enter your choice: " OPTION
+    read -p "ENTER YOUR CHOICE: " OPTION
 
     case "$OPTION" in
         1)
@@ -25,12 +25,12 @@ while true; do
             ;;
         q|Q)
             echo
-            echo "Exiting script. Goodbye!"
+            echo "EXITING SCRIPT. GOODBYE!"
             break
             ;;
         *)
             echo
-            read -p "Invalid option. Press Enter to continue..."
+            read -p "INVALID OPTION. PRESS ENTER TO CONTINUE..."
             ;;
     esac
 done
