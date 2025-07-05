@@ -8,10 +8,9 @@ function main() {
     while true; do
         clear
         echo -en "${BLUE}"
-        echo_dashes 4
-        echo "-------------------------------------"
+        echo_dashes 40
         echo "              MAIN MENU              "
-        echo "-------------------------------------"
+        echo_dashes 40
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
         echo "3) Start dotfiles setup"
