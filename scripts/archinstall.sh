@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function archinstall_main() {
-    #clear
+    clear
     echo "--- Running Archinstall setup ---"
     echo
 
     archinstall_install
 
-    #clear
+    clear
     echo "--- Archinstall setup complete ---"
     echo
     read -p "Press Enter to continue..."

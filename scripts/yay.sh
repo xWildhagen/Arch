@@ -1,14 +1,14 @@
 #!/bin/bash
 
 function yay_main() {
-    #clear
+    clear
     echo "--- Installing Yay (AUR helper) and packages ---"
     echo
 
     yay_install
     yay_install_packages
 
-    #clear
+    clear
     echo "--- Yay and package installation complete ---"
     echo
     read -p "Press Enter to continue..."
