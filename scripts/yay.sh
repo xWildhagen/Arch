@@ -54,6 +54,7 @@ function yay_install() {
 }
 
 function yay_install_packages() {
+    echo
     echo "Installing packages with yay..."
     if [ ${#yay_packages[@]} -eq 0 ]; then
         echo "No packages specified in yay_packages array."
