@@ -24,8 +24,8 @@ while true; do
             yay_main
             ;;
         q|Q)
-            echo "Exiting script. Goodbye!"
             echo
+            echo "Exiting script. Goodbye!"
             break
             ;;
         *)
