@@ -33,5 +33,5 @@ function echo_color {
         "$RED"|"$GREEN"|"$YELLOW"|"$BLUE"|"$PURPLE") COLOR="${!1}" ;;
         *) COLOR="$NC" ;;
     esac
-    echo -en "${COLOR}${2}${NC}"
+    echo -e "${COLOR}${2}${NC}"
 }
