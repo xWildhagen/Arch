@@ -67,6 +67,7 @@ organize_home_directory() {
     )
 
     for FOLDER in "${FOLDERS[@]}"; do
+        echo "Processing ${FOLDER}..."
         if [ -d "$FOLDER" ]; then
             echo_color "GREEN" "Deleting $FOLDER..."
             rm -r "$FOLDER" || { echo_color "RED" "Error: Could not delete $FOLDER."; return 1; }
