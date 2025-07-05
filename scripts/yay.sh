@@ -2,15 +2,15 @@
 
 function yay_main() {
     clear
-    echo "--- Installing Yay (AUR helper) and packages ---"
+    echo "--- INSTALLING YAY (AUR HELPER) AND PACKAGES ---"
     echo
 
     yay_install
     yay_install_packages
 
-    echo "--- Yay and package installation complete ---"
+    echo "--- YAY AND PACKAGE INSTALLATION COMPLETE ---"
     echo
-    read -p "Press Enter to continue..."
+    read -p "PRESS ENTER TO CONTINUE..."
 }
 
 # https://github.com/Jguer/yay
@@ -28,15 +28,15 @@ yay_packages = (
 )
 
 function yay_install_packages() {
-    echo "Installing packages with Yay..."
+    echo "INSTALLING PACKAGES WITH YAY..."
     if [ ${#yay_packages[@]} -eq 0 ]; then
         echo
         echo "No packages specified in yay_packages array."
         echo "Skipping package installation."
         echo
-        read -p "Press Enter to continue..."
+        read -p "PRESS ENTER TO CONTINUE..."
         return
     fi
-    
-    yay "${yay_packages[@]}" || { echo "Failed to install some packages"; }
+
+    yay "${yay_packages[@]}" || { echo "FAILED TO INSTALL SOME PACKAGES"; }
 }
