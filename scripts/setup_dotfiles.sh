@@ -28,7 +28,7 @@ function setup_dotfiles() {
 
     echo "Creating symbolic links..."
     for FILE in "${DOTFILES_FILES[@]}"; do
-        echo "Processing ${FILE}..."
+        echo "Processing ${FILE} file..."
         ln -sf "${DOTFILES_DIR}/${FILE}" "${HOME}/${FILE}" || { echo_color "RED" "Error: Could not create symbolic link for ${FILE}."; return 1; }
     done
     echo_color "GREEN" "Symbolic links created successfully."
@@ -49,7 +49,7 @@ organize_home_directory() {
 
     for FOLDER in "${FOLDERS[@]}"; do
         IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
-        echo "Processing ${NEW_FOLDER}..."
+        echo "Processing ${NEW_FOLDER} folder..."
         if [ -d "$NEW_FOLDER" ]; then
             echo "$NEW_FOLDER folder already exists."
         elif [ -d "$OLD_FOLDER" ]; then
@@ -67,7 +67,7 @@ organize_home_directory() {
     )
 
     for FOLDER in "${FOLDERS[@]}"; do
-        echo "Processing ${FOLDER}..."
+        echo "Processing ${FOLDER} folder..."
         if [ -d "$FOLDER" ]; then
             echo_color "GREEN" "Deleting $FOLDER..."
             rm -r "$FOLDER" || { echo_color "RED" "Error: Could not delete $FOLDER."; return 1; }
