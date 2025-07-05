@@ -18,89 +18,41 @@ function setup_dotfiles() {
         echo_color "RED" "Error: Failed to organize home directory."
         return 1
     fi
-    echo_color "GREEN" "\nHome folder organized successfully."
+    echo_color "GREEN" "Home folder organized successfully."
 
     echo "Creating symbolic links..."
     ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo_color "RED" "Error: Could not create symbolic link for .gitconfig."; return 1; }
 }
 
-function organize_home_directory() {
-    cd ${HOME} || { echo_color "RED" "Error: Could not find home directory."; return 1; }
+organize_home_directory() {
+    cd "${HOME}" || { echo_color "RED" "Error: Could not find home directory."; return 1; }
     echo "Organizing home directory..."
 
-    if [ -d "documents" ]; then
-        echo "documents folder already exists."
-    elif [ -d "Documents" ]; then
-        echo "Renaming Documents to documents..."
-        mv -n "Documents" "documents" || { echo_color "RED" "Error: Could not rename Documents."; return 1; }
-    else
-        echo "Creating documents folder..."
-        mkdir "documents" || { echo_color "RED" "Error: Could not create documents folder."; return 1; }
-    fi
+    local FOLDERS=("documents:Documents" "downloads:Downloads" 
+                   "documents/desktop:Desktop" "documents/music:Music" 
+                   "documents/pictures:Pictures" "documents/videos:Videos")
 
-    if [ -d "downloads" ]; then
-        echo "downloads folder already exists."
-    elif [ -d "Downloads" ]; then
-        echo "Renaming Downloads to downloads..."
-        mv -n "Downloads" "downloads" || { echo_color "RED" "Error: Could not rename Downloads."; return 1; }
-    else
-        echo "Creating downloads folder..."
-        mkdir "downloads" || { echo_color "RED" "Error: Could not create downloads folder."; return 1; }
-    fi
+    for FOLDER in "${FOLDERS[@]}"; do
+        IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
+        if [ -d "$NEW_FOLDER" ]; then
+            echo "$NEW_FOLDER folder already exists."
+        elif [ -d "$OLD_FOLDER" ]; then
+            echo "Renaming and moving $OLD_FOLDER to $NEW_FOLDER..."
+            mv -n "$OLD_FOLDER" "$NEW_FOLDER" || { echo_color "RED" "Error: Could not rename/move $OLD_FOLDER."; return 1; }
+        else
+            echo "Creating $NEW_FOLDER folder..."
+            mkdir -p "$NEW_FOLDER" || { echo_color "RED" "Error: Could not create $NEW_FOLDER folder."; return 1; }
+        fi
+    done
 
-    if [ -d "documents/desktop" ]; then
-        echo "documents/desktop folder already exists."
-    elif [ -d "Desktop" ]; then
-        echo "Renaming and moving Desktop to documents/desktop..."
-        mv -n "Desktop" "documents/desktop" || { echo_color "RED" "Error: Could not rename and move Desktop."; return 1; }
-    else
-        echo "Creating documents/desktop folder..."
-        mkdir -p "documents/desktop" || { echo_color "RED" "Error: Could not create documents/desktop folder."; return 1; }
-    fi
+    FOLDERS=("Public" "Templates")
 
-    if [ -d "documents/music" ]; then
-        echo "documents/music folder already exists."
-    elif [ -d "Music" ]; then
-        echo "Renaming and moving Music to documents/music..."
-        mv -n "Music" "documents/music" || { echo_color "RED" "Error: Could not rename and move Music."; return 1; }
-    else
-        echo "Creating documents/music folder..."
-        mkdir -p "documents/music" || { echo_color "RED" "Error: Could not create documents/music folder."; return 1; }
-    fi
-
-    if [ -d "documents/pictures" ]; then
-        echo "documents/pictures folder already exists."
-    elif [ -d "Pictures" ]; then
-        echo "Renaming and moving Pictures to documents/pictures..."
-        mv -n "Pictures" "documents/pictures" || { echo_color "RED" "Error: Could not rename and move Pictures."; return 1; }
-    else
-        echo "Creating documents/pictures folder..."
-        mkdir -p "documents/pictures" || { echo_color "RED" "Error: Could not create documents/pictures folder."; return 1; }
-    fi
-
-    if [ -d "documents/videos" ]; then
-        echo "documents/videos folder already exists."
-    elif [ -d "Videos" ]; then
-        echo "Renaming and moving Videos to documents/videos..."
-        mv -n "Videos" "documents/videos" || { echo_color "RED" "Error: Could not rename and move Videos."; return 1; }
-    else
-        echo "Creating documents/videos folder..."
-        mkdir -p "documents/videos" || { echo_color "RED" "Error: Could not create documents/videos folder."; return 1; }
-    fi
-
-    if [ -d "Public" ]; then
-        echo "Deleting Public..."
-        rm -r "Public" || { echo_color "RED" "Error: Could not delete Public."; return 1; }
-    else
-        echo "Public folder does not exist."
-    fi
-
-    if [ -d "Templates" ]; then
-        echo "Deleting Templates..."
-        rm -r "Templates" || { echo_color "RED" "Error: Could not delete Templates."; return 1; }
-    else
-        echo "Templates folder does not exist."
-    fi
-
-    return
+    for FOLDER in "${FOLDERS[@]}"; do
+        if [ -d "$FOLDER" ]; then
+            echo "Deleting $FOLDER..."
+            rm -r "$FOLDER" || { echo_color "RED" "Error: Could not delete $FOLDER."; return 1; }
+        else
+            echo "$FOLDER folder does not exist."
+        fi
+    done
 }
