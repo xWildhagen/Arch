@@ -16,12 +16,12 @@ function install_archinstall_main() {
 
 function install_archinstall() {
     if [ ! -f "${ARCHINSTALL_CONFIG}" ]; then
-        echo "Error: Archinstall configuration file not found at ${ARCHINSTALL_CONFIG}"
+        echo_color "RED" "Error: Archinstall configuration file not found at ${ARCHINSTALL_CONFIG}"
         return 1
     fi
 
     if [ ! -f "${ARCHINSTALL_CREDS}" ]; then
-        echo "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
+        echo_color "RED" "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
         return 1
     fi
 
