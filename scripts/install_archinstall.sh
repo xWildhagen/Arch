@@ -9,7 +9,7 @@ function install_archinstall_main() {
     echo
 
     if ! install_archinstall; then
-        failed
+        failed "derp"
         return 1
     fi
 
