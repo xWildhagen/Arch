@@ -27,7 +27,7 @@ function main() {
             3)
                 setup_dotfiles_main
                 ;;
-            0)
+            0|q|Q)
                 echo
                 echo "EXITING SCRIPT. GOODBYE!"
                 break
