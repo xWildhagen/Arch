@@ -8,7 +8,7 @@ NC="\033[0m"
 
 function enter_to_continue() {
     echo
-    read -p "${BLUE}PRESS ENTER TO CONTINUE...${NC}"
+    printf -p "${BLUE}PRESS ENTER TO CONTINUE...${NC}"
 }
 
 function complete {
