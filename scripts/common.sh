@@ -31,5 +31,5 @@ function failed {
 }
 
 function echo_color {
-    echo -e "${$1}${2}${NC}"
+    echo -e "${!1}${2}${NC}"
 }
