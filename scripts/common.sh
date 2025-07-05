@@ -19,7 +19,11 @@ function enter_to_continue() {
 
 function starting() {
     clear
-    echo -e "${BLUE}--- STARTING $1${NC}\n"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -e STARTING "$1"
+    echo -e "${NC}"
+    #echo -e "${BLUE}--- STARTING $1${NC}\n"
 }
 
 function complete() {
