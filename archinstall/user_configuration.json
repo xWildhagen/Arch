@@ -198,8 +198,6 @@
   "ntp": true,
   "packages": [
     "iwd",
-    "wpa_supplicant",
-    "wireless_tools",
     "openssh",
     "curl",
     "wget",
