@@ -24,6 +24,8 @@ function setup_dotfiles() {
         ".bashrc"
         ".bash_profile"
         ".gitconfig"
+        ".fonts.conf"
+        ".gtkrc-2.0"
     )
 
     echo "Creating symbolic links..."
