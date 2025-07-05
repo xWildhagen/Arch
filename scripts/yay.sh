@@ -9,7 +9,7 @@ function yay_main() {
     clear
     echo "--- STARTING YAY (AUR HELPER) AND PACKAGE INSTALLATION ---"
     echo
-
+    enter_to_continue
     if ! yay_install; then
         failed "--- YAY INSTALLATION"
         return 1
@@ -47,7 +47,6 @@ function yay_install() {
     echo
     echo "YAY INSTALLED SUCCESSFULLY."
     echo
-    enter_to_continue
     return
 }
 
