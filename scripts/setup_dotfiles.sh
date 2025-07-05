@@ -29,8 +29,13 @@ organize_home_directory() {
     echo "Organizing home directory..."
 
     declare FOLDERS=(
-        "documents:Documents" "downloads:Downloads" "documents/desktop:Desktop" "documents/music:Music" 
-        "documents/pictures:Pictures" "documents/videos:Videos")
+        "documents:Documents" 
+        "downloads:Downloads" 
+        "documents/desktop:Desktop" 
+        "documents/music:Music" 
+        "documents/pictures:Pictures" 
+        "documents/videos:Videos"
+    )
 
     for FOLDER in "${FOLDERS[@]}"; do
         IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
