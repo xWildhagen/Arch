@@ -7,7 +7,6 @@ BLUE="\033[0;34m"
 NC="\033[0m"
 
 function enter_to_continue() {
-    echo
     echo -e "${YELLOW}"
     read -p "PRESS ENTER TO CONTINUE..."
     echo -e "${NC}"
@@ -29,4 +28,8 @@ function failed {
     echo
     echo -e "${RED}$1 FAILED ---${NC}"
     enter_to_continue
+}
+
+function echo_color {
+    echo -e "${$1}${2}${NC}"
 }

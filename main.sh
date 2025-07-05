@@ -41,3 +41,5 @@ function main() {
 }
 
 main
+
+echo_color "BLUE" "This is a blue message."
