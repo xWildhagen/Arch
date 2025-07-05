@@ -8,7 +8,7 @@ PURPLE="\033[0;35m"
 NC="\033[0m"
 
 function enter_to_continue() {
-    echo -e "${YELLOW}"
+    echo -e "${PURPLE}"
     read -p "PRESS ENTER TO CONTINUE..."
     echo -e "${NC}"
 }
