@@ -1,5 +1,10 @@
 #!/bin/bash
 
+for file in "${HOME}/arch/scripts/"*.sh; do
+    if [[ -f "$file" ]]; then
+        source "$file"
+done
+
 source "${HOME}/arch/scripts/install_archinstall.sh"
 source "${HOME}/arch/scripts/install_yay.sh"
 source "${HOME}/arch/scripts/setup_dotfiles.sh"
@@ -10,8 +15,9 @@ function main() {
         echo "-------------------------------------"
         echo "       BASH SCRIPT MAIN MENU         "
         echo "-------------------------------------"
-        echo "1) Run Archinstall setup"
-        echo "2) Install Yay and packages"
+        echo "1) Start Archinstall setup"
+        echo "2) Start yay and package installation"
+        echo "3) Start dotfiles setup"
         echo "q) Quit"
         echo "-------------------------------------"
         read -p "ENTER YOUR CHOICE: " OPTION
