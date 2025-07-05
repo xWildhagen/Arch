@@ -18,6 +18,8 @@ function main() {
         echo "-------------------------------------"
         echo -en "${PURPLE}"
         read -p "ENTER YOUR CHOICE: " OPTION
+        echo -en "${BLUE}"
+        echo "-------------------------------------"
         echo -en "${NC}"
 
         case "$OPTION" in
