@@ -7,7 +7,7 @@ function archinstall_main() {
     clear
     echo "--- STARTING ARCHINSTALL SETUP ---"
     echo
-
+    
     archinstall_install
 }
 
