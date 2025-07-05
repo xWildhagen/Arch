@@ -2,6 +2,7 @@
 
 CONF_DIR="${HOME}/arch/scripts/conf"
 source "${CONF_DIR}/colors.conf"
+source "${CONF_DIR}/yay_packages.conf"
 
 function enter_to_continue() {
     echo -en "${PURPLE}"
