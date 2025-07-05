@@ -15,6 +15,8 @@ ssh root@IP
 loadkeys no
 pacman -Syu git
 git clone https://github.com/xwildhagen/arch.git
+chmod +x arch/main.sh
+sudo arch/main.sh
 archinstall --config arch/user_configuration.json --creds arch/user_credentials.json
 ```
 
