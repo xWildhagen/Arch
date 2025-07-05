@@ -35,19 +35,19 @@ function install_archinstall() {
     fi
 }
 
-function enter_to_continue() {
-    echo
-    read -p "PRESS ENTER TO CONTINUE..."
-}
+#function enter_to_continue() {
+#    echo
+#    read -p "PRESS ENTER TO CONTINUE..."
+#}
 
-function complete {
-    echo
-    echo "--- ARCHINSTALL SETUP COMPLETE ---"
-    enter_to_continue
-}
+#function complete {
+#    echo
+#    echo "--- ARCHINSTALL SETUP COMPLETE ---"
+#    enter_to_continue
+#}
 
-function failed {
-    echo
-    echo "--- ARCHINSTALL SETUP FAILED ---"
-    enter_to_continue
-}
+#function failed {
+#    echo
+#    echo "--- ARCHINSTALL SETUP FAILED ---"
+#    enter_to_continue
+#}
