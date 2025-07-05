@@ -34,11 +34,16 @@ function main() {
                 ;;
             0|q|Q)
                 echo_color "GREEN" "EXITING SCRIPT. GOODBYE!"
+                echo -en "${BLUE}"
+                echo "-------------------------------------"
+                echo -en "${NC}"
                 break
                 ;;
             *)
                 echo -en "${RED}"
                 read -p "INVALID OPTION. PRESS ENTER TO CONTINUE..."
+                echo -en "${BLUE}"
+                echo "-------------------------------------"
                 echo -en "${NC}"
                 ;;
         esac
