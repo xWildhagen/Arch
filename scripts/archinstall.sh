@@ -34,6 +34,11 @@ function archinstall_install() {
     fi
 }
 
+function enter_to_continue() {
+    echo
+    read -p "PRESS ENTER TO CONTINUE..."
+}
+
 function complete {
     echo
     echo "--- ARCHINSTALL SETUP COMPLETE ---"
@@ -44,9 +49,4 @@ function failed {
     echo
     echo "--- ARCHINSTALL SETUP FAILED ---"
     enter_to_continue
-}
-
-function enter_to_continue() {
-    echo
-    read -p "PRESS ENTER TO CONTINUE..."
 }
