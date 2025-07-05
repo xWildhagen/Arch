@@ -14,7 +14,12 @@ function setup_dotfiles_main() {
 }
 
 function setup_dotfiles() {
-    organize_home_directory
+    if ! organize_home_directory; then
+        echo_color "RED" "\nError: Failed to organize home directory."
+        return 1
+    fi
+    echo_color "GREEN" "\nHome folder organized successfully."
+
     echo "Creating symbolic links..."
     ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo_color "RED" "\nError: Could not create symbolic link for .gitconfig."; return 1; }
 }
@@ -42,7 +47,5 @@ function organize_home_directory() {
     echo "Deleting Templates..."
     rm -r "Templates" || { echo_color "RED" "\nError: Could not delete Templates."; return 1; }
 
-    echo
-    echo_color "GREEN" "Home folder organized successfully."
     return
 }
