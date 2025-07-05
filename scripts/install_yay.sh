@@ -50,7 +50,7 @@ function install_yay() {
 }
 
 function install_yay_packages() {
-    echo -e "\nInstalling packages with yay..."
+    echo -e "Installing packages with yay..."
     if [ ${#yay_packages[@]} -eq 0 ]; then
         echo "No packages specified in yay_packages array."
         echo_color "YELLOW" "Skipping package installation."
