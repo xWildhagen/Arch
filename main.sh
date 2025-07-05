@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source "${HOME}/arch/scripts/archinstall.sh"
-source "${HOME}/arch/scripts/yay.sh"
+source "${HOME}/arch/scripts/install_archinstall.sh"
+source "${HOME}/arch/scripts/install_yay.sh"
 
 function main() {
     while true; do
