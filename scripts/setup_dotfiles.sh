@@ -6,11 +6,11 @@ function setup_dotfiles_main() {
     echo
 
     if ! setup_dotfiles; then
-        failed
+        failed "--- DOTFILES SETUP "
         return 1
     fi
 
-    complete
+    complete "--- DOTFILES SETUP "
 }
 
 function setup_dotfiles() {

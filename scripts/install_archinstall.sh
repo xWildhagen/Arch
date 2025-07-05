@@ -9,11 +9,11 @@ function install_archinstall_main() {
     echo
 
     if ! install_archinstall; then
-        failed "derp"
+        failed "--- ARCHINSTALL SETUP "
         return 1
     fi
 
-    complete
+    complete "--- ARCHINSTALL SETUP "
 }
 
 function install_archinstall() {
@@ -34,20 +34,3 @@ function install_archinstall() {
         return 1
     fi
 }
-
-#function enter_to_continue() {
-#    echo
-#    read -p "PRESS ENTER TO CONTINUE..."
-#}
-
-#function complete {
-#    echo
-#    echo "--- ARCHINSTALL SETUP COMPLETE ---"
-#    enter_to_continue
-#}
-
-#function failed {
-#    echo
-#    echo "--- ARCHINSTALL SETUP FAILED ---"
-#    enter_to_continue
-#}
