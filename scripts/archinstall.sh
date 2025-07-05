@@ -7,7 +7,6 @@ function archinstall_main() {
 
     archinstall_install
 
-    clear
     echo "--- Archinstall setup complete ---"
     echo
     read -p "Press Enter to continue..."
