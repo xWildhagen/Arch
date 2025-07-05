@@ -21,6 +21,8 @@ function setup_dotfiles() {
     echo_color "GREEN" "Home folder organized successfully."
 
     echo "Creating symbolic links..."
+    ln -sf "${DOTFILES_DIR}/.bashrc" "${HOME}/.bashrc" || { echo_color "RED" "Error: Could not create symbolic link for .bashrc."; return 1; }
+    ln -sf "${DOTFILES_DIR}/.bash_profile" "${HOME}/.bash_profile" || { echo_color "RED" "Error: Could not create symbolic link for .bash_profile."; return 1; }
     ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo_color "RED" "Error: Could not create symbolic link for .gitconfig."; return 1; }
 }
 
