@@ -1,8 +1,7 @@
 #!/bin/bash
 
 declare -a yay_packages=(
-    "visual-studio-code-bin"
-    "microsoft-edge-stable-bin"
+    "visual-studio-code-bin" "microsoft-edge-stable-bin"
 )
 
 function install_yay_main() {

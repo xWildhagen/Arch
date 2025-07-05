@@ -28,9 +28,9 @@ organize_home_directory() {
     cd "${HOME}" || { echo_color "RED" "Error: Could not find home directory."; return 1; }
     echo "Organizing home directory..."
 
-    local FOLDERS=("documents:Documents" "downloads:Downloads" 
-                   "documents/desktop:Desktop" "documents/music:Music" 
-                   "documents/pictures:Pictures" "documents/videos:Videos")
+    declare FOLDERS=(
+        "documents:Documents" "downloads:Downloads" "documents/desktop:Desktop" "documents/music:Music" 
+        "documents/pictures:Pictures" "documents/videos:Videos")
 
     for FOLDER in "${FOLDERS[@]}"; do
         IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
@@ -45,7 +45,10 @@ organize_home_directory() {
         fi
     done
 
-    FOLDERS=("Public" "Templates")
+    FOLDERS=(
+        "Public" 
+        "Templates"
+    )
 
     for FOLDER in "${FOLDERS[@]}"; do
         if [ -d "$FOLDER" ]; then
