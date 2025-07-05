@@ -13,25 +13,30 @@ function enter_to_continue() {
     echo -e "${NC}"
 }
 
-function starting {
+function starting() {
     clear
     echo -e "${BLUE}--- STARTING $1${NC}\n"
 }
 
-function complete {
+function complete() {
     echo -e "\n${GREEN}$1 COMPLETE ---${NC}"
     enter_to_continue
 }
 
-function failed {
+function failed() {
     echo -e "\n${RED}$1 FAILED ---${NC}"
     enter_to_continue
 }
 
-function echo_color {
+function echo_color() {
     case "${!1}" in
         "$RED"|"$GREEN"|"$YELLOW"|"$BLUE"|"$PURPLE") COLOR="${!1}" ;;
         *) COLOR="$NC" ;;
     esac
     echo -en "${COLOR}${2}${NC}\n"
+}
+
+echo_dashes() {
+    local COUNT=$1
+    printf '%*s' "$COUNT" | tr ' ' '-'
 }

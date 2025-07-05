@@ -8,6 +8,7 @@ function main() {
     while true; do
         clear
         echo -en "${BLUE}"
+        echo_dashes 4
         echo "-------------------------------------"
         echo "              MAIN MENU              "
         echo "-------------------------------------"
