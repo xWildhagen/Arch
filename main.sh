@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Sources
-source ./scripts/archinstall.sh
-source ./scripts/yay.sh
+source ~/arch/scripts/archinstall.sh
+source ~/arch/scripts/yay.sh
 
 # Main loop
 while true; do
-    #clear
+    clear
     echo "-------------------------------------"
     echo "       Bash Script Main Menu         "
     echo "-------------------------------------"
@@ -25,10 +25,12 @@ while true; do
             ;;
         q|Q)
             echo "Exiting script. Goodbye!"
-            break # Exit the while loop
+            echo
+            break
             ;;
         *)
-            echo "Invalid option. Please enter 1, 2, or q."
+            echo
+            read -p "Invalid option. Press Enter to continue..."
             ;;
     esac
 done

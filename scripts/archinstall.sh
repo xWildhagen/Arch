@@ -14,5 +14,5 @@ function archinstall_main() {
 }
 
 function archinstall_install() {
-    archinstall --config ./archinstall/user_configuration.json --creds ./archinstall/user_credentials.json
+    archinstall --config ~/arch/archinstall/user_configuration.json --creds ~/arch/archinstall/user_credentials.json
 }
