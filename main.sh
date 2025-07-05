@@ -8,7 +8,7 @@ function main() {
     while true; do
         clear
         echo "-------------------------------------"
-        echo "       BASH SCRIPT MAIN MENU         "
+        echo "              MAIN MENU              "
         echo "-------------------------------------"
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
@@ -29,7 +29,7 @@ function main() {
                 ;;
             0|q|Q)
                 echo
-                echo -e "${GREEN}EXITING SCRIPT. GOODBYE!${NC}"
+                echo_color "GREEN" "EXITING SCRIPT. GOODBYE!"
                 break
                 ;;
             *)
