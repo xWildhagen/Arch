@@ -196,7 +196,7 @@
     "type": "nm"
   },
   "ntp": true,
-  "packages": "file:///home/username/arch/archinstall/packages.txt",
+  "packages": "file:///home/root/arch/archinstall/packages.txt",
   "parallel_downloads": 10,
   "services": [],
   "swap": true,
