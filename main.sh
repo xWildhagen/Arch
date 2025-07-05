@@ -9,17 +9,17 @@ function main() {
         clear
         echo -en "${BLUE}"
         echo_dashes 40
-        echo "              MAIN MENU              "
+        echo "MAIN MENU"
         echo_dashes 40
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
         echo "3) Start dotfiles setup"
         echo "0) Quit"
-        echo "-------------------------------------"
+        echo_dashes 40
         echo -en "${PURPLE}"
         read -p "ENTER YOUR CHOICE: " OPTION
         echo -en "${BLUE}"
-        echo "-------------------------------------"
+        echo_dashes 40
         echo -en "${NC}"
 
         case "$OPTION" in
