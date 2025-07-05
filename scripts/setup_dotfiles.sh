@@ -28,6 +28,7 @@ function setup_dotfiles() {
 
     echo "Creating symbolic links..."
     for FILE in "${DOTFILES_FILES[@]}"; do
+        echo "Processing ${FILE}..."
         ln -sf "${DOTFILES_DIR}/${FILE}" "${HOME}/${FILE}" || { echo_color "RED" "Error: Could not create symbolic link for ${FILE}."; return 1; }
     done
     echo_color "GREEN" "Symbolic links created successfully."
@@ -48,6 +49,7 @@ organize_home_directory() {
 
     for FOLDER in "${FOLDERS[@]}"; do
         IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
+        echo "Processing ${NEW_FOLDER}..."
         if [ -d "$NEW_FOLDER" ]; then
             echo "$NEW_FOLDER folder already exists."
         elif [ -d "$OLD_FOLDER" ]; then
