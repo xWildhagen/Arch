@@ -1,6 +1,10 @@
 #!/bin/bash
 
 DOTFILES_DIR="${HOME}/arch/dotfiles"
+CONF_DIR="${HOME}/arch/scripts/conf"
+source "${CONF_DIR}/dotfiles_files.conf"
+source "${CONF_DIR}/keep_folders.conf"
+source "${CONF_DIR}/delete_folders.conf"
 
 function setup_dotfiles_main() {
     starting "DOTFILES SETUP"
@@ -20,14 +24,6 @@ function setup_dotfiles() {
     fi
     echo_color "GREEN" "Home folder organized successfully."
 
-    declare DOTFILES_FILES=(
-        ".bashrc"
-        ".bash_profile"
-        ".gitconfig"
-        ".fonts.conf"
-        ".gtkrc-2.0"
-    )
-
     echo "Creating symbolic links..."
     for FILE in "${DOTFILES_FILES[@]}"; do
         echo "Processing ${FILE} file..."
@@ -40,16 +36,7 @@ organize_home_directory() {
     cd "${HOME}" || { echo_color "RED" "Error: Could not find home directory."; return 1; }
     echo "Organizing home directory..."
 
-    declare FOLDERS=(
-        "documents:Documents" 
-        "downloads:Downloads" 
-        "documents/desktop:Desktop" 
-        "documents/music:Music" 
-        "documents/pictures:Pictures" 
-        "documents/videos:Videos"
-    )
-
-    for FOLDER in "${FOLDERS[@]}"; do
+    for FOLDER in "${KEEP_FOLDERS[@]}"; do
         IFS=':' read -r NEW_FOLDER OLD_FOLDER <<< "$FOLDER"
         echo "Processing ${NEW_FOLDER} folder..."
         if [ -d "$NEW_FOLDER" ]; then
@@ -62,13 +49,8 @@ organize_home_directory() {
             mkdir -p "$NEW_FOLDER" || { echo_color "RED" "Error: Could not create $NEW_FOLDER folder."; return 1; }
         fi
     done
-
-    FOLDERS=(
-        "Public" 
-        "Templates"
-    )
-
-    for FOLDER in "${FOLDERS[@]}"; do
+    
+    for FOLDER in "${DELETE_FOLDERS[@]}"; do
         echo "Processing ${FOLDER} folder..."
         if [ -d "$FOLDER" ]; then
             echo_color "GREEN" "Deleting $FOLDER..."
