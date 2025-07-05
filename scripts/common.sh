@@ -31,5 +31,9 @@ function failed {
 }
 
 function echo_color {
-    echo -e "${!1}${2}${NC}"
+    case "${!1}" in
+        "$RED"|"$GREEN"|"$YELLOW"|"$BLUE") COLOR="${!1}" ;;
+        *) COLOR="$NC" ;;
+    esac
+    echo -e "${COLOR}${2}${NC}"
 }

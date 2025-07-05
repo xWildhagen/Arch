@@ -40,6 +40,7 @@ function main() {
     done
 }
 
-main
+echo_color "BLUE" "Blue"
+echo_color "Nope" "None"
 
-echo_color "BLUE" "This is a blue message."
+main
