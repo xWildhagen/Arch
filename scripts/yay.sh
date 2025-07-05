@@ -7,24 +7,47 @@ declare -a yay_packages = (
 
 function yay_main() {
     clear
-    echo "--- INSTALLING YAY (AUR HELPER) AND PACKAGES ---"
+    echo "--- STARTING YAY (AUR HELPER) AND PACKAGE INSTALLATION ---"
     echo
 
-    yay_install
-    yay_install_packages
+    if ! yay_install; then
+        failed "--- YAY INSTALLATION"
+        return 1
+    fi
 
-    echo
-    echo "--- YAY AND PACKAGE INSTALLATION COMPLETE ---"
-    enter_to_continue
+    if ! yay_install_packages; then
+        failed "--- YAY PACKAGE INSTALLATION"
+        return 1
+    fi
+
+    complete "--- YAY AND PACKAGE INSTALLATION"
 }
 
 # https://github.com/Jguer/yay
 function yay_install() {
-    cd ~
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
+    echo "Checking for existing yay installation..."
+    if command -v yay &> /dev/null; then
+        echo
+        echo "YAY IS ALREADY INSTALLED. SKIPPING INSTALLATION PROCESS."
+        echo
+        return 0
+    fi
+    echo "Yay not found. Proceeding with installation..."
+    echo "Cloning and building yay..."
+    cd ~ || { echo -e "\nError: Could not change to home directory."; return 1; }
+    sudo pacman -S --needed git base-devel || { echo -e "\nError: Failed to install git and base-devel."; return 1; }
+    if [ -d "yay" ]; then
+        echo "yay directory already exists. Pulling latest changes..."
+        (cd yay && git pull) || { echo -e "\nError: Failed to pull latest yay changes."; return 1; }
+    else
+        git clone https://aur.archlinux.org/yay.git || { echo -e "\nError: Failed to clone yay repository."; return 1; }
+    fi
+    cd yay || { echo -e "\nError: Could not change to yay directory."; return 1; }
+    makepkg -si || { echo -e "\nError: Failed to build and install yay."; return 1; }
+    echo
+    echo "YAY INSTALLED SUCCESSFULLY."
+    echo
+    return
 }
 
 function yay_install_packages() {
@@ -47,12 +70,12 @@ function enter_to_continue() {
 
 function complete {
     echo
-    echo "--- ARCHINSTALL SETUP COMPLETE ---"
+    echo "$1 COMPLETE ---"
     enter_to_continue
 }
 
 function failed {
     echo
-    echo "--- ARCHINSTALL SETUP FAILED ---"
+    echo "$1 FAILED ---"
     enter_to_continue
 }
