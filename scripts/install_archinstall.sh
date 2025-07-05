@@ -8,28 +8,29 @@ function install_archinstall_main() {
     echo "--- STARTING ARCHINSTALL SETUP ---"
     echo
     
-    archinstall_install
+    if ! archinstall_install; then
+        failed
+        return 1
+    fi
+
+    complete
 }
 
 function archinstall_install() {
     if [ ! -f "${ARCHINSTALL_CONFIG}" ]; then
         echo "Error: Archinstall configuration file not found at ${ARCHINSTALL_CONFIG}"
-        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 
     if [ ! -f "${ARCHINSTALL_CREDS}" ]; then
         echo "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
-        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 
     if archinstall --config "$ARCHINSTALL_CONFIG" --creds "$ARCHINSTALL_CREDS"; then
         clear
-        complete "--- ARCHINSTALL SETUP"
         return
     else
-        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 }
@@ -41,12 +42,12 @@ function enter_to_continue() {
 
 function complete {
     echo
-    echo "$1 COMPLETE ---"
+    echo "--- ARCHINSTALL SETUP COMPLETE ---"
     enter_to_continue
 }
 
 function failed {
     echo
-    echo "$1 FAILED ---"
+    echo "--- ARCHINSTALL SETUP FAILED ---"
     enter_to_continue
 }
