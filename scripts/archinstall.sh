@@ -34,7 +34,7 @@ function archinstall_install() {
 }
 
 function complete {
-    echo
+    clear
     echo "--- ARCHINSTALL SETUP COMPLETE ---"
     enter_to_continue
 }
