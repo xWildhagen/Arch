@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOTFILES_DIR="${HOME}/arch/dotfiles"
+
 function setup_dotfiles_main() {
     clear
     echo "--- STARTING DOTFILES SETUP ---"
@@ -15,6 +17,8 @@ function setup_dotfiles_main() {
 
 function setup_dotfiles() {
     organize_home_directory
+    echo "Creating symbolic links..."
+    ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo -e "\nError: Could not create symbolic link for .gitconfig."; return 1; }
 }
 
 function organize_home_directory() {
