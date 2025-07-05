@@ -46,7 +46,7 @@ function yay_install() {
     makepkg -si || { echo -e "\nError: Failed to build and install yay."; return 1; }
 
     cd ~ || { echo -e "\nError: Could not change to home directory."; return 1; }
-    rm -r yay
+    sudo rm -r yay
 
     echo
     echo "YAY INSTALLED SUCCESSFULLY."
