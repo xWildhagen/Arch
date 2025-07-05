@@ -33,8 +33,9 @@ function main() {
                 break
                 ;;
             *)
-                echo
+                echo -e "${RED}"
                 read -p "INVALID OPTION. PRESS ENTER TO CONTINUE..."
+                echo -e "${NC}"
                 ;;
         esac
     done
