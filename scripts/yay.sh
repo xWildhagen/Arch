@@ -45,6 +45,9 @@ function yay_install() {
     cd yay || { echo -e "\nError: Could not change to yay directory."; return 1; }
     makepkg -si || { echo -e "\nError: Failed to build and install yay."; return 1; }
 
+    cd ~ || { echo -e "\nError: Could not change to home directory."; return 1; }
+    rm -r yay
+
     echo
     echo "YAY INSTALLED SUCCESSFULLY."
     return
