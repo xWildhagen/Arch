@@ -40,7 +40,7 @@ function main() {
     done
 }
 
+main
+
 echo_color "BLUE" "Blue"
 echo_color "Nope" "None"
-
-main
