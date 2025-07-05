@@ -11,6 +11,12 @@ function enter_to_continue() {
     read -p "PRESS ENTER TO CONTINUE..."
 }
 
+function starting {
+    clear
+    echo -e "${BLUE}--- STARTING $1${NC}"
+    echo
+}
+
 function complete {
     echo
     echo -e "${GREEN}$1 COMPLETE ---${NC}"

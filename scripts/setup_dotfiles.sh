@@ -3,9 +3,7 @@
 DOTFILES_DIR="${HOME}/arch/dotfiles"
 
 function setup_dotfiles_main() {
-    clear
-    echo "--- STARTING DOTFILES SETUP ---"
-    echo
+    starting "DOTFILES SETUP ---"
 
     if ! setup_dotfiles; then
         failed "--- DOTFILES SETUP"

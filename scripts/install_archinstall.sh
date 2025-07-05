@@ -4,9 +4,7 @@ ARCHINSTALL_CONFIG="${HOME}/arch/archinstall/user_configuration.json"
 ARCHINSTALL_CREDS="${HOME}/arch/archinstall/user_credentials.json"
 
 function install_archinstall_main() {
-    clear
-    echo "--- STARTING ARCHINSTALL SETUP ---"
-    echo
+    starting "ARCHINSTALL SETUP ---"
 
     if ! install_archinstall; then
         failed "--- ARCHINSTALL SETUP"
