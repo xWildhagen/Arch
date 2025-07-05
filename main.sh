@@ -41,3 +41,20 @@ function main() {
 }
 
 main
+
+function enter_to_continue() {
+    echo
+    read -p "PRESS ENTER TO CONTINUE..."
+}
+
+function complete {
+    echo
+    echo "--- DOTFILES SETUP COMPLETE ---"
+    enter_to_continue
+}
+
+function failed {
+    echo
+    echo "--- DOTFILES SETUP FAILED ---"
+    enter_to_continue
+}
