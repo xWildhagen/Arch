@@ -21,17 +21,17 @@ function starting() {
     echo_dashes 50
     echo -e "STARTING $1"
     echo_dashes 50
-    echo -e "${NC}"
+    echo -en "${NC}"
 }
 
 function complete() {
     echo -en "${BLUE}"
     echo_dashes 50
     echo -en "${GREEN}"
-    echo -e "COMPLETE $1"
+    echo -e "$1 COMPLETE"
     echo -en "${BLUE}"
     echo_dashes 50
-    echo -e "${NC}"
+    echo -en "${NC}"
     enter_to_continue
 }
 
@@ -42,7 +42,7 @@ function failed() {
     echo -e "$1 FAILED"
     echo -en "${BLUE}"
     echo_dashes 50
-    echo -e "${NC}"
+    echo -en "${NC}"
     enter_to_continue
 }
 
