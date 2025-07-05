@@ -6,7 +6,7 @@ declare -a yay_packages=(
 )
 
 function install_yay_main() {
-    starting "YAY (AUR HELPER) AND PACKAGE INSTALLATION ---"
+    starting "YAY (AUR HELPER) AND PACKAGE INSTALLATION"
 
     if ! install_yay; then
         failed "--- YAY INSTALLATION"

@@ -22,8 +22,8 @@ function starting() {
     echo -en "${BLUE}"
     echo_dashes 50
     echo -e STARTING "$1"
+    echo_dashes 50
     echo -e "${NC}"
-    #echo -e "${BLUE}--- STARTING $1${NC}\n"
 }
 
 function complete() {
