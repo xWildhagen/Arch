@@ -3,7 +3,7 @@
 ARCHINSTALL_CONFIG="${HOME}/arch/archinstall/user_configuration.json"
 ARCHINSTALL_CREDS="${HOME}/arch/archinstall/user_credentials.json"
 
-function archinstall_main() {
+function install_archinstall_main() {
     clear
     echo "--- STARTING ARCHINSTALL SETUP ---"
     echo

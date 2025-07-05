@@ -5,7 +5,7 @@ declare -a yay_packages=(
     "microsoft-edge-stable-bin"
 )
 
-function yay_main() {
+function install_yay_main() {
     clear
     echo "--- STARTING YAY (AUR HELPER) AND PACKAGE INSTALLATION ---"
     echo

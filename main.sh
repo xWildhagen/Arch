@@ -2,6 +2,7 @@
 
 source "${HOME}/arch/scripts/install_archinstall.sh"
 source "${HOME}/arch/scripts/install_yay.sh"
+source "${HOME}/arch/scripts/setup_dotfiles.sh"
 
 function main() {
     while true; do
@@ -17,10 +18,13 @@ function main() {
 
         case "$OPTION" in
             1)
-                archinstall_main
+                install_archinstall_main
                 ;;
             2)
-                yay_main
+                install_yay_main
+                ;;
+            3)
+                setup_dotfiles_main
                 ;;
             q|Q)
                 echo
