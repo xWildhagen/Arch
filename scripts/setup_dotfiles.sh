@@ -43,6 +43,6 @@ function organize_home_directory() {
     rm -r "Templates" || { echo_color "RED" "\nError: Could not delete Templates."; return 1; }
 
     echo
-    echo_color "GREEN" "HOME FOLDER ORGANIZED SUCCESSFULLY."
+    echo_color "GREEN" "Home folder organized successfully."
     return
 }
