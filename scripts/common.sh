@@ -8,9 +8,13 @@ PURPLE="\033[0;35m"
 NC="\033[0m"
 
 function enter_to_continue() {
-    echo -e "${PURPLE}"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -en "${PURPLE}"
     read -p "PRESS ENTER TO CONTINUE..."
-    echo -e "${NC}"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -en "${NC}"
 }
 
 function starting() {
