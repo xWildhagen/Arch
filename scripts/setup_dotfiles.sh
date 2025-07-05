@@ -18,7 +18,7 @@ function setup_dotfiles() {
 }
 
 function organize_home_directory() {
-    cd ~ || { echo -e "\nError: Could not find home directory."; return 1; }
+    cd ${HOME} || { echo -e "\nError: Could not find home directory."; return 1; }
     echo "Organizing home directory..."
 
     echo "Renaming Documents to documents..."

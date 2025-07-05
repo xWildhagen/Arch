@@ -33,7 +33,7 @@ function install_yay() {
 
     echo "Yay not found. Proceeding with installation..."
     echo "Cloning and building yay..."
-    cd ~ || { echo -e "\nError: Could not find home directory."; return 1; }
+    cd ${HOME} || { echo -e "\nError: Could not find home directory."; return 1; }
     sudo pacman -S --needed git base-devel || { echo -e "\nError: Failed to install git and base-devel."; return 1; }
     if [ -d "yay" ]; then
         echo "yay directory already exists. Pulling latest changes..."
@@ -45,7 +45,7 @@ function install_yay() {
     cd yay || { echo -e "\nError: Could not find yay directory."; return 1; }
     makepkg -si || { echo -e "\nError: Failed to build and install yay."; return 1; }
 
-    cd ~ || { echo -e "\nError: Could not find home directory."; return 1; }
+    cd ${HOME} || { echo -e "\nError: Could not find home directory."; return 1; }
     sudo rm -r yay
 
     echo

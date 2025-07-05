@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in "~/arch/scripts/"*.sh; do
+for file in "${HOME}/arch/scripts/"*.sh; do
     source "$file"
 done
 
