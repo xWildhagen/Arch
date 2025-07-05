@@ -7,16 +7,14 @@ done
 function main() {
     while true; do
         clear
-        echo -e "${BLUE}"
-        echo "-------------------------------------"
+        echo -e "${BLUE}-------------------------------------"
         echo "              MAIN MENU              "
         echo "-------------------------------------"
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
         echo "3) Start dotfiles setup"
         echo "0) Quit"
-        echo -e "-------------------------------------"
-        echo -e "${PURPLE}"
+        echo -e "-------------------------------------${PURPLE}"
         read -p "ENTER YOUR CHOICE: " OPTION
         echo -e "${NC}"
 
