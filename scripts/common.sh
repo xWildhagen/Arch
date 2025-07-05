@@ -8,8 +8,6 @@ PURPLE="\033[0;35m"
 NC="\033[0m"
 
 function enter_to_continue() {
-    echo -en "${BLUE}"
-    echo_dashes 50
     echo -en "${PURPLE}"
     read -p "PRESS ENTER TO CONTINUE..."
     echo -en "${BLUE}"
@@ -21,18 +19,30 @@ function starting() {
     clear
     echo -en "${BLUE}"
     echo_dashes 50
-    echo -e STARTING "$1"
+    echo -e "STARTING $1"
     echo_dashes 50
     echo -e "${NC}"
 }
 
 function complete() {
-    echo -e "\n${GREEN}$1 COMPLETE ---${NC}"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -en "${GREEN}"
+    echo -e "COMPLETE $1"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -e "${NC}"
     enter_to_continue
 }
 
 function failed() {
-    echo -e "\n${RED}$1 FAILED ---${NC}"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -en "${RED}"
+    echo -e "$1 FAILED"
+    echo -en "${BLUE}"
+    echo_dashes 50
+    echo -e "${NC}"
     enter_to_continue
 }
 

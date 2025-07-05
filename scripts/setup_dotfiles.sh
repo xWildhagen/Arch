@@ -6,11 +6,11 @@ function setup_dotfiles_main() {
     starting "DOTFILES SETUP"
 
     if ! setup_dotfiles; then
-        failed "--- DOTFILES SETUP"
+        failed "DOTFILES SETUP"
         return 1
     fi
 
-    complete "--- DOTFILES SETUP"
+    complete "DOTFILES SETUP"
 }
 
 function setup_dotfiles() {

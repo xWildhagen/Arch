@@ -9,15 +9,15 @@ function install_yay_main() {
     starting "YAY (AUR HELPER) AND PACKAGE INSTALLATION"
 
     if ! install_yay; then
-        failed "--- YAY INSTALLATION"
+        failed "AY INSTALLATION"
         return 1
     fi
     if ! install_yay_packages; then
-        failed "--- YAY PACKAGE INSTALLATION"
+        failed "YAY PACKAGE INSTALLATION"
         return 1
     fi
 
-    complete "--- YAY AND PACKAGE INSTALLATION"
+    complete "YAY AND PACKAGE INSTALLATION"
 }
 
 # https://github.com/Jguer/yay

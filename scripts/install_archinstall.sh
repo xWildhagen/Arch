@@ -7,11 +7,11 @@ function install_archinstall_main() {
     starting "ARCHINSTALL SETUP"
 
     if ! install_archinstall; then
-        failed "--- ARCHINSTALL SETUP"
+        failed "ARCHINSTALL SETUP"
         return 1
     fi
 
-    complete "--- ARCHINSTALL SETUP"
+    complete "ARCHINSTALL SETUP"
 }
 
 function install_archinstall() {
