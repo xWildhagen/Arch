@@ -28,7 +28,7 @@ function setup_dotfiles() {
     echo "Creating symbolic links..."
     for FILE in "${DOTFILES_FILES[@]}"; do
         echo "Processing ${FILE} file..."
-        ln -sf "${DOTFILES_DIR}/${FILE}" "${HOME}/${FILE}" || { echo_color "RED" "Error: Could not create symbolic link for ${FILE}."; return 1; }
+        ln -sf "${DOTFILES_DIR}/${FILE}" "${HOME}/${FILE}" || echo_color "RED" "Error: Could not create symbolic link for ${FILE}."
     done
     echo_color "GREEN" "Symbolic links created successfully."
 }
