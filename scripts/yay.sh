@@ -10,8 +10,7 @@ function yay_main() {
 
     echo
     echo "--- YAY AND PACKAGE INSTALLATION COMPLETE ---"
-    echo
-    read -p "PRESS ENTER TO CONTINUE..."
+    enter_to_continue
 }
 
 # https://github.com/Jguer/yay
@@ -34,10 +33,14 @@ function yay_install_packages() {
         echo
         echo "No packages specified in yay_packages array."
         echo "Skipping package installation."
-        echo
-        read -p "PRESS ENTER TO CONTINUE..."
+        enter_to_continue
         return
     fi
 
     yay "${yay_packages[@]}" || { echo "FAILED TO INSTALL SOME PACKAGES"; }
+}
+
+function enter_to_continue() {
+    echo
+    read -p "PRESS ENTER TO CONTINUE..."
 }
