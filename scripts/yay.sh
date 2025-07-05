@@ -47,6 +47,7 @@ function yay_install() {
     echo
     echo "YAY INSTALLED SUCCESSFULLY."
     echo
+    enter_to_continue
     return
 }
 
