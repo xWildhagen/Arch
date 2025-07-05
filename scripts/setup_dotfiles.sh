@@ -37,10 +37,10 @@ organize_home_directory() {
         if [ -d "$NEW_FOLDER" ]; then
             echo "$NEW_FOLDER folder already exists."
         elif [ -d "$OLD_FOLDER" ]; then
-            echo "Renaming and moving $OLD_FOLDER to $NEW_FOLDER..."
+            echo_color "GREEN" "Renaming and moving $OLD_FOLDER to $NEW_FOLDER..."
             mv -n "$OLD_FOLDER" "$NEW_FOLDER" || { echo_color "RED" "Error: Could not rename/move $OLD_FOLDER."; return 1; }
         else
-            echo "Creating $NEW_FOLDER folder..."
+            echo_color "GREEN" "Creating $NEW_FOLDER folder..."
             mkdir -p "$NEW_FOLDER" || { echo_color "RED" "Error: Could not create $NEW_FOLDER folder."; return 1; }
         fi
     done
@@ -49,7 +49,7 @@ organize_home_directory() {
 
     for FOLDER in "${FOLDERS[@]}"; do
         if [ -d "$FOLDER" ]; then
-            echo "Deleting $FOLDER..."
+            echo_color "GREEN" "Deleting $FOLDER..."
             rm -r "$FOLDER" || { echo_color "RED" "Error: Could not delete $FOLDER."; return 1; }
         else
             echo "$FOLDER folder does not exist."
