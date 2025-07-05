@@ -24,8 +24,7 @@ function install_yay_main() {
 function install_yay() {
     echo "Checking for existing yay installation..."
     if command -v yay &> /dev/null; then
-        echo
-        echo_color "GREEN" "yay is already installed. Skipping installation process."
+        echo_color "GREEN" "\nyay is already installed. Skipping installation process."
         return 0
     fi
 
@@ -46,28 +45,23 @@ function install_yay() {
     cd ${HOME} || { echo_color "RED" "\nError: Could not find home directory."; return 1; }
     sudo rm -r yay
 
-    echo
-    echo_color "GREEN" "yay installed successfully."
+    echo_color "GREEN" "\nyay installed successfully."
     return
 }
 
 function install_yay_packages() {
-    echo
-    echo "Installing packages with yay..."
+    echo -e "\nInstalling packages with yay..."
     if [ ${#yay_packages[@]} -eq 0 ]; then
         echo "No packages specified in yay_packages array."
-        echo
-        echo_color "YELLOW" "Skipping package installation."
+        echo_color "YELLOW" "\nSkipping package installation."
         return
     fi
 
     if yay -S "${yay_packages[@]}"; then
-        echo
-        echo_color "GREEN" "All specified packages installed successfully."
+        echo_color "GREEN" "\nAll specified packages installed successfully."
         return 0
     else
-        echo
-        echo_color "RED" "Failed to install some packages."
+        echo_color "RED" "\nFailed to install some packages."
         return 1
     fi
 }
