@@ -3,11 +3,6 @@
 CONF_DIR="${HOME}/arch/scripts/conf"
 source "${CONF_DIR}/colors.conf"
 
-declare -a yay_packages=(
-    "visual-studio-code-bin" 
-    "microsoft-edge-stable-bin"
-)
-
 function install_yay_main() {
     starting "YAY (AUR HELPER) AND PACKAGE INSTALLATION"
 
@@ -54,13 +49,13 @@ function install_yay() {
 
 function install_yay_packages() {
     echo -e "Installing packages with yay..."
-    if [ ${#yay_packages[@]} -eq 0 ]; then
+    if [ ${#YAY_PACKAGES[@]} -eq 0 ]; then
         echo "No packages specified in yay_packages array."
         echo_color "YELLOW" "Skipping package installation."
         return
     fi
 
-    if yay -S "${yay_packages[@]}"; then
+    if yay -S "${YAY_PACKAGES[@]}"; then
         echo_color "GREEN" "All specified packages installed successfully."
         return 0
     else
