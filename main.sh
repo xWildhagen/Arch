@@ -1,8 +1,7 @@
 #!/bin/bash
 
 for file in "${HOME}/arch/scripts/"*.sh; do
-    if [[ -f "$file" ]]; then
-        source "$file"
+    source "$file"
 done
 
 source "${HOME}/arch/scripts/install_archinstall.sh"
