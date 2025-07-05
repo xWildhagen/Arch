@@ -31,7 +31,6 @@ function main() {
                 setup_dotfiles_main
                 ;;
             0|q|Q)
-                echo
                 echo_color "GREEN" "EXITING SCRIPT. GOODBYE!"
                 break
                 ;;
