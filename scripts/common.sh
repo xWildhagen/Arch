@@ -15,19 +15,16 @@ function enter_to_continue() {
 
 function starting {
     clear
-    echo -e "${BLUE}--- STARTING $1${NC}"
-    echo
+    echo -e "${BLUE}--- STARTING $1${NC}\n"
 }
 
 function complete {
-    echo
-    echo -e "${GREEN}$1 COMPLETE ---${NC}"
+    echo -e "\n${GREEN}$1 COMPLETE ---${NC}"
     enter_to_continue
 }
 
 function failed {
-    echo
-    echo -e "${RED}$1 FAILED ---${NC}"
+    echo -e "\n${RED}$1 FAILED ---${NC}"
     enter_to_continue
 }
 
@@ -36,5 +33,5 @@ function echo_color {
         "$RED"|"$GREEN"|"$YELLOW"|"$BLUE"|"$PURPLE") COLOR="${!1}" ;;
         *) COLOR="$NC" ;;
     esac
-    echo -e "${COLOR}${2}${NC}"
+    echo -en "${COLOR}${2}${NC}"
 }
