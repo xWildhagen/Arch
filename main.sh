@@ -13,7 +13,7 @@ function main() {
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
         echo "3) Start dotfiles setup"
-        echo "q) Quit"
+        echo "0) Quit"
         echo "-------------------------------------"
         read -p "ENTER YOUR CHOICE: " OPTION
 
@@ -27,7 +27,7 @@ function main() {
             3)
                 setup_dotfiles_main
                 ;;
-            q|Q)
+            0)
                 echo
                 echo "EXITING SCRIPT. GOODBYE!"
                 break
