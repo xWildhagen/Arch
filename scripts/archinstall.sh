@@ -20,19 +20,14 @@ function archinstall_install() {
 
     if [ ! -f "${ARCHINSTALL_CREDS}" ]; then
         echo "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
-        enter_to_continue
+        complete
         return 1
     fi
 
     if archinstall --config "$ARCHINSTALL_CONFIG" --creds "$ARCHINSTALL_CREDS"; then
-        echo
-        echo "--- ARCHINSTALL SETUP COMPLETE ---"
-        enter_to_continue
         return
     else
-        echo
-        echo "--- ARCHINSTALL SETUP FAILED ---"
-        enter_to_continue
+        failed
         return 1
     fi
 }
@@ -40,4 +35,16 @@ function archinstall_install() {
 function enter_to_continue() {
     echo
     read -p "PRESS ENTER TO CONTINUE..."
+}
+
+function complete {
+    echo
+    echo "--- ARCHINSTALL SETUP COMPLETE ---"
+    enter_to_continue
+}
+
+function failed {
+    echo
+    echo "--- ARCHINSTALL SETUP FAILED ---"
+    enter_to_continue
 }
