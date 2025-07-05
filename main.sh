@@ -4,10 +4,6 @@ for file in "${HOME}/arch/scripts/"*.sh; do
     source "$file"
 done
 
-source "${HOME}/arch/scripts/install_archinstall.sh"
-source "${HOME}/arch/scripts/install_yay.sh"
-source "${HOME}/arch/scripts/setup_dotfiles.sh"
-
 function main() {
     while true; do
         clear
