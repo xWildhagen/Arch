@@ -30,19 +30,19 @@ function install_yay() {
 
     echo "Yay not found. Proceeding with installation..."
     echo "Cloning and building yay..."
-    cd ${HOME} || { echo_color "RED" "\nError: Could not find home directory."; return 1; }
-    sudo pacman -S --needed git base-devel || { echo_color "RED" "\nError: Failed to install git and base-devel."; return 1; }
+    cd ${HOME} || { echo_color "RED" "Error: Could not find home directory."; return 1; }
+    sudo pacman -S --needed git base-devel || { echo_color "RED" "Error: Failed to install git and base-devel."; return 1; }
     if [ -d "yay" ]; then
         echo "yay directory already exists. Pulling latest changes..."
-        (cd yay && git pull) || { echo_color "RED" "\nError: Failed to pull latest yay changes."; return 1; }
+        (cd yay && git pull) || { echo_color "RED" "Error: Failed to pull latest yay changes."; return 1; }
     else
-        git clone https://aur.archlinux.org/yay.git || { echo_color "RED" "\nError: Failed to clone yay repository."; return 1; }
+        git clone https://aur.archlinux.org/yay.git || { echo_color "RED" "Error: Failed to clone yay repository."; return 1; }
     fi
 
-    cd yay || { echo_color "RED" "\nError: Could not find yay directory."; return 1; }
-    makepkg -si || { echo_color "RED" "\nError: Failed to build and install yay."; return 1; }
+    cd yay || { echo_color "RED" "Error: Could not find yay directory."; return 1; }
+    makepkg -si || { echo_color "RED" "Error: Failed to build and install yay."; return 1; }
 
-    cd ${HOME} || { echo_color "RED" "\nError: Could not find home directory."; return 1; }
+    cd ${HOME} || { echo_color "RED" "Error: Could not find home directory."; return 1; }
     sudo rm -r yay
 
     echo_color "GREEN" "\nyay installed successfully."
