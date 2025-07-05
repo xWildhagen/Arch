@@ -10,11 +10,11 @@ function install_yay_main() {
     echo "--- STARTING YAY (AUR HELPER) AND PACKAGE INSTALLATION ---"
     echo
 
-    if ! yay_install; then
+    if ! install_yay; then
         failed "--- YAY INSTALLATION"
         return 1
     fi
-    if ! yay_install_packages; then
+    if ! install_yay_packages; then
         failed "--- YAY PACKAGE INSTALLATION"
         return 1
     fi
@@ -23,7 +23,7 @@ function install_yay_main() {
 }
 
 # https://github.com/Jguer/yay
-function yay_install() {
+function install_yay() {
     echo "Checking for existing yay installation..."
     if command -v yay &> /dev/null; then
         echo
@@ -53,7 +53,7 @@ function yay_install() {
     return
 }
 
-function yay_install_packages() {
+function install_yay_packages() {
     echo
     echo "Installing packages with yay..."
     if [ ${#yay_packages[@]} -eq 0 ]; then

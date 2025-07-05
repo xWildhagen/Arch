@@ -7,8 +7,8 @@ function install_archinstall_main() {
     clear
     echo "--- STARTING ARCHINSTALL SETUP ---"
     echo
-    
-    if ! archinstall_install; then
+
+    if ! install_archinstall; then
         failed
         return 1
     fi
@@ -16,7 +16,7 @@ function install_archinstall_main() {
     complete
 }
 
-function archinstall_install() {
+function install_archinstall() {
     if [ ! -f "${ARCHINSTALL_CONFIG}" ]; then
         echo "Error: Archinstall configuration file not found at ${ARCHINSTALL_CONFIG}"
         return 1
