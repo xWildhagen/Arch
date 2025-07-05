@@ -1,27 +1,27 @@
 #!/bin/bash
 
 # Sources
-source ./scripts/install_archinstall.sh
-source ./scripts/install_yay.sh
+source ./scripts/archinstall.sh
+source ./scripts/yay.sh
 
 # Main loop
 while true; do
-    clear
+    #clear
     echo "-------------------------------------"
     echo "       Bash Script Main Menu         "
     echo "-------------------------------------"
     echo "1) Run Archinstall setup"
-    echo "2) Install Yay"
+    echo "2) Install Yay and packages"
     echo "q) Quit"
     echo "-------------------------------------"
     read -p "Enter your choice: " OPTION
 
     case "$OPTION" in
         1)
-            install_archinstall
+            archinstall_main
             ;;
         2)
-            install_yay
+            yay_main
             ;;
         q|Q)
             echo "Exiting script. Goodbye!"
