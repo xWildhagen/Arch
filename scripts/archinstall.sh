@@ -5,7 +5,7 @@ ARCHINSTALL_CREDS="${HOME}/arch/archinstall/user_credentials.json"
 
 function archinstall_main() {
     clear
-    echo "--- RUNNING ARCHINSTALL SETUP ---"
+    echo "--- STARTING ARCHINSTALL SETUP ---"
     echo
 
     archinstall_install
@@ -14,22 +14,22 @@ function archinstall_main() {
 function archinstall_install() {
     if [ ! -f "${ARCHINSTALL_CONFIG}" ]; then
         echo "Error: Archinstall configuration file not found at ${ARCHINSTALL_CONFIG}"
-        failed
+        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 
     if [ ! -f "${ARCHINSTALL_CREDS}" ]; then
         echo "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
-        failed
+        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 
     if archinstall --config "$ARCHINSTALL_CONFIG" --creds "$ARCHINSTALL_CREDS"; then
         clear
-        complete
+        complete "--- ARCHINSTALL SETUP"
         return
     else
-        failed
+        failed "--- ARCHINSTALL SETUP"
         return 1
     fi
 }
@@ -41,12 +41,12 @@ function enter_to_continue() {
 
 function complete {
     echo
-    echo "--- ARCHINSTALL SETUP COMPLETE ---"
+    echo "$1 COMPLETE ---"
     enter_to_continue
 }
 
 function failed {
     echo
-    echo "--- ARCHINSTALL SETUP FAILED ---"
+    echo "$1 FAILED ---"
     enter_to_continue
 }

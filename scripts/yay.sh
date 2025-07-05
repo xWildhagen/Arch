@@ -1,5 +1,10 @@
 #!/bin/bash
 
+declare -a yay_packages = (
+    "visual-studio-code-bin"
+    "microsoft-edge-stable-bin"
+)
+
 function yay_main() {
     clear
     echo "--- INSTALLING YAY (AUR HELPER) AND PACKAGES ---"
@@ -22,11 +27,6 @@ function yay_install() {
     makepkg -si
 }
 
-yay_packages = (
-    "visual-studio-code-bin"
-    "microsoft-edge-stable-bin"
-)
-
 function yay_install_packages() {
     echo "INSTALLING PACKAGES WITH YAY..."
     if [ ${#yay_packages[@]} -eq 0 ]; then
@@ -43,4 +43,16 @@ function yay_install_packages() {
 function enter_to_continue() {
     echo
     read -p "PRESS ENTER TO CONTINUE..."
+}
+
+function complete {
+    echo
+    echo "--- ARCHINSTALL SETUP COMPLETE ---"
+    enter_to_continue
+}
+
+function failed {
+    echo
+    echo "--- ARCHINSTALL SETUP FAILED ---"
+    enter_to_continue
 }
