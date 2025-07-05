@@ -8,6 +8,7 @@ function yay_main() {
     yay_install
     yay_install_packages
 
+    echo
     echo "--- YAY AND PACKAGE INSTALLATION COMPLETE ---"
     echo
     read -p "PRESS ENTER TO CONTINUE..."
