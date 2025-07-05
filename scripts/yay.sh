@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a yay_packages = (
+declare -a yay_packages=(
     "visual-studio-code-bin"
     "microsoft-edge-stable-bin"
 )

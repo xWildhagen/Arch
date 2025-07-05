@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ARCHINSTALL_CONFIG="${HOME}/arch/archinstall/user_configuration.json"
-ARCHINSTALL_CREDS="${HOME}/arch/archinstall/user_credentials.json"
+ARCHINSTALL_CONFIG="~/arch/archinstall/user_configuration.json"
+ARCHINSTALL_CREDS="~/arch/archinstall/user_credentials.json"
 
 function archinstall_main() {
     clear
