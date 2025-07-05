@@ -6,7 +6,7 @@ function setup_dotfiles_main() {
     echo
 
     if ! setup_dotfiles; then
-        failed 
+        failed
         return 1
     fi
 
@@ -14,7 +14,7 @@ function setup_dotfiles_main() {
 }
 
 function setup_dotfiles() {
-    
+
 }
 
 function enter_to_continue() {
