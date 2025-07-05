@@ -201,7 +201,6 @@
     "openssh",
     "curl",
     "wget",
-    "http",
     "smartmontools",
     "fastfetch",
     "vim",
