@@ -8,7 +8,9 @@ NC="\033[0m"
 
 function enter_to_continue() {
     echo
+    echo -e "${YELLOW}"
     read -p "PRESS ENTER TO CONTINUE..."
+    echo -e "${NC}"
 }
 
 function starting {
