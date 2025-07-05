@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Sources
-source ~/arch/scripts/archinstall.sh
-source ~/arch/scripts/yay.sh
+source ${HOME}/arch/scripts/archinstall.sh
+source ${HOME}/arch/scripts/yay.sh
 
-# Main loop
 while true; do
     clear
     echo "-------------------------------------"
