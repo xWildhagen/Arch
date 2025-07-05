@@ -16,33 +16,33 @@ function setup_dotfiles_main() {
 function setup_dotfiles() {
     organize_home_directory
     echo "Creating symbolic links..."
-    ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo -e "\nError: Could not create symbolic link for .gitconfig."; return 1; }
+    ln -sf "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig" || { echo_color "RED" "\nError: Could not create symbolic link for .gitconfig."; return 1; }
 }
 
 function organize_home_directory() {
-    cd ${HOME} || { echo -e "\nError: Could not find home directory."; return 1; }
+    cd ${HOME} || { echo_color "RED" "\nError: Could not find home directory."; return 1; }
     echo "Organizing home directory..."
 
     echo "Renaming Documents to documents..."
-    mv -n "Documents" "documents" || { echo -e "\nError: Could not rename Documents."; return 1; }
+    mv -n "Documents" "documents" || { echo_color "RED" "\nError: Could not rename Documents."; return 1; }
     echo "Renaming Downloads to downloads..."
-    mv -n "Downloads" "downloads" || { echo -e "\nError: Could not rename Downloads."; return 1; }
+    mv -n "Downloads" "downloads" || { echo_color "RED" "\nError: Could not rename Downloads."; return 1; }
 
     echo "Renaming and moving Desktop to documents/desktop..."
-    mv -n "Desktop" "documents/desktop" || { echo -e "\nError: Could not rename and move Desktop."; return 1; }
+    mv -n "Desktop" "documents/desktop" || { echo_color "RED" "\nError: Could not rename and move Desktop."; return 1; }
     echo "Renaming and moving Music to documents/music..."
-    mv -n "Music" "documents/music" || { echo -e "\nError: Could not rename and move Music."; return 1; }
+    mv -n "Music" "documents/music" || { echo_color "RED" "\nError: Could not rename and move Music."; return 1; }
     echo "Renaming and moving Pictures to documents/pictures..."
-    mv -n "Pictures" "documents/pictures" || { echo -e "\nError: Could not rename and move Pictures."; return 1; }
+    mv -n "Pictures" "documents/pictures" || { echo_color "RED" "\nError: Could not rename and move Pictures."; return 1; }
     echo "Renaming and moving Videos to documents/videos..."
-    mv -n "Videos" "documents/videos" || { echo -e "\nError: Could not rename and move Videos."; return 1; }
+    mv -n "Videos" "documents/videos" || { echo_color "RED" "\nError: Could not rename and move Videos."; return 1; }
 
     echo "Deleting Public..."
-    rm -r "Public" || { echo -e "\nError: Could not delete Public."; return 1; }
+    rm -r "Public" || { echo_color "RED" "\nError: Could not delete Public."; return 1; }
     echo "Deleting Templates..."
-    rm -r "Templates" || { echo -e "\nError: Could not delete Templates."; return 1; }
+    rm -r "Templates" || { echo_color "RED" "\nError: Could not delete Templates."; return 1; }
 
     echo
-    echo "HOME FOLDER ORGANIZED SUCCESSFULLY."
+    echo_color "GREEN" "HOME FOLDER ORGANIZED SUCCESSFULLY."
     return
 }
