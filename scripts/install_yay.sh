@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CONF_DIR="${HOME}/arch/scripts/conf"
+source "${CONF_DIR}/colors.conf"
+
 declare -a yay_packages=(
     "visual-studio-code-bin" 
     "microsoft-edge-stable-bin"

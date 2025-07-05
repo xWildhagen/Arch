@@ -1,10 +1,11 @@
 #!/bin/bash
 
-DOTFILES_DIR="${HOME}/arch/dotfiles"
 CONF_DIR="${HOME}/arch/scripts/conf"
+source "${CONF_DIR}/colors.conf"
 source "${CONF_DIR}/dotfiles_files.conf"
 source "${CONF_DIR}/keep_folders.conf"
 source "${CONF_DIR}/delete_folders.conf"
+DOTFILES_DIR="${HOME}/arch/dotfiles"
 
 function setup_dotfiles_main() {
     starting "DOTFILES SETUP"

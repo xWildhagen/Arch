@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CONF_DIR="${HOME}/arch/scripts/conf"
+source "${CONF_DIR}/colors.conf"
+
 for file in "${HOME}/arch/scripts/"*.sh; do
     source "$file"
 done

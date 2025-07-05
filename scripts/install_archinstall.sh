@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CONF_DIR="${HOME}/arch/scripts/conf"
+source "${CONF_DIR}/colors.conf"
 ARCHINSTALL_CONFIG="${HOME}/arch/archinstall/user_configuration.json"
 ARCHINSTALL_CREDS="${HOME}/arch/archinstall/user_credentials.json"
 
