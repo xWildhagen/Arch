@@ -7,16 +7,18 @@ done
 function main() {
     while true; do
         clear
-        echo -e "${BLUE}-------------------------------------"
+        echo -en "${BLUE}"
+        echo "-------------------------------------"
         echo "              MAIN MENU              "
         echo "-------------------------------------"
         echo "1) Start Archinstall setup"
         echo "2) Start yay and package installation"
         echo "3) Start dotfiles setup"
         echo "0) Quit"
-        echo -e "-------------------------------------${PURPLE}"
+        echo "-------------------------------------"
+        echo -en "${PURPLE}"
         read -p "ENTER YOUR CHOICE: " OPTION
-        echo -e "${NC}"
+        echo -en "${NC}"
 
         case "$OPTION" in
             1)
@@ -34,9 +36,9 @@ function main() {
                 break
                 ;;
             *)
-                echo -e "${RED}"
+                echo -en "${RED}"
                 read -p "INVALID OPTION. PRESS ENTER TO CONTINUE..."
-                echo -e "${NC}"
+                echo -en "${NC}"
                 ;;
         esac
     done
