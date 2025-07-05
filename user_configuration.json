@@ -196,7 +196,7 @@
     "type": "nm"
   },
   "ntp": true,
-  "packages": ["fastfetch", "vim", "git", "visual-studio-code-bin"],
+  "packages": ["fastfetch", "vim", "git"],
   "parallel_downloads": 10,
   "services": [],
   "swap": true,
