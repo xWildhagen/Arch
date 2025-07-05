@@ -20,11 +20,12 @@ function archinstall_install() {
 
     if [ ! -f "${ARCHINSTALL_CREDS}" ]; then
         echo "Error: Archinstall credentials file not found at ${ARCHINSTALL_CREDS}"
-        complete
+        enter_to_continue
         return 1
     fi
 
     if archinstall --config "$ARCHINSTALL_CONFIG" --creds "$ARCHINSTALL_CREDS"; then
+        complete
         return
     else
         failed
