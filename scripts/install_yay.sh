@@ -57,17 +57,17 @@ function install_yay_packages() {
     if [ ${#yay_packages[@]} -eq 0 ]; then
         echo "No packages specified in yay_packages array."
         echo
-        echo "SKIPPING PACKAGE INSTALLATION."
+        echo_color "YELLOW" "SKIPPING PACKAGE INSTALLATION."
         return
     fi
 
     if yay -S "${yay_packages[@]}"; then
         echo
-        echo "ALL SPECIFIED PACKAGES INSTALLED SUCCESSFULLY."
+        echo_color "GREEN" "ALL SPECIFIED PACKAGES INSTALLED SUCCESSFULLY."
         return 0
     else
         echo
-        echo "FAILED TO INSTALL SOME PACKAGES."
+        echo_color "RED" "FAILED TO INSTALL SOME PACKAGES."
         return 1
     fi
 }
