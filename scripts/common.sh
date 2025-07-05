@@ -37,6 +37,5 @@ function echo_color() {
 }
 
 echo_dashes() {
-    local COUNT=$1
-    printf '%*s' "$COUNT" | tr ' ' '-'
+    echo "$(printf '%*s' "$1" | tr ' ' '-')"
 }
