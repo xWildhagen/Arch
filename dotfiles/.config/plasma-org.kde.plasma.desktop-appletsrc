@@ -21,6 +21,7 @@ positions={"1829x1029":[]}
 [Containments][1][Wallpaper][org.kde.image][General]
 Image=file:///home/wildhagen/arch/assets/aurora.png
 SlidePaths=/usr/share/wallpapers/
+wallpaperplugin=org.kde.image
 
 [Containments][2]
 activityId=
