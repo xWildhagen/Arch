@@ -29,12 +29,12 @@ function main() {
                 ;;
             0|q|Q)
                 echo
-                echo "EXITING SCRIPT. GOODBYE!"
+                echo "${GREEN}EXITING SCRIPT. GOODBYE!${NC}"
                 break
                 ;;
             *)
                 echo
-                read -p "INVALID OPTION. PRESS ENTER TO CONTINUE..."
+                read -p "${RED}INVALID OPTION. PRESS ENTER TO CONTINUE...${NC}"
                 ;;
         esac
     done
